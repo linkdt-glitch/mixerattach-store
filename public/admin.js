@@ -8,6 +8,7 @@ const adminState = {
   orders: [],
   leads: [],
   events: [],
+  amazonClicks: [],
   metrics: {}
 };
 
@@ -18,7 +19,7 @@ const money = (value) => `$${Number(value || 0).toFixed(2)}`;
 const ADMIN_I18N = {
   en: {
     login_eyebrow: "Store admin",
-    login_title: "Manage products, storefront, customers, and orders.",
+    login_title: "Manage products, storefront, customers, and Amazon click data.",
     login_note: "Default local password is admin123. Change ADMIN_PASSWORD before going public.",
     password: "Password",
     sign_in: "Sign in",
@@ -33,7 +34,7 @@ const ADMIN_I18N = {
     nav_storefront: "Storefront",
     nav_analytics: "Analytics",
     quick_tasks: "Quick tasks",
-    quick_tasks_title: "Keep the store ready to sell",
+    quick_tasks_title: "Keep Amazon traffic ready to convert",
     manage_products: "Manage products",
     view_emails: "View customer emails",
     edit_homepage: "Edit homepage",
@@ -45,7 +46,7 @@ const ADMIN_I18N = {
     add_product: "Add product",
     save_catalog: "Save catalog",
     import_csv: "Import CSV",
-    product_help: "Upload product photos, edit sales copy, adjust prices, and save to publish changes on the storefront.",
+    product_help: "Upload product photos, edit sales copy, configure Amazon links, and save to publish changes on the storefront.",
     import_done: "Products imported. Click Save catalog to publish them.",
     photo: "Photo",
     upload_image: "Upload image",
@@ -77,6 +78,10 @@ const ADMIN_I18N = {
     hero_subtitle: "Hero subtitle",
     support_email: "Support email",
     currency: "Currency",
+    ga4_id: "GA4 ID",
+    gtm_id: "Google Tag Manager ID",
+    meta_pixel_id: "Meta Pixel ID",
+    tiktok_pixel_id: "TikTok Pixel ID",
     category: "Category",
     price: "Price",
     compare_at: "Compare at",
@@ -86,6 +91,22 @@ const ADMIN_I18N = {
     color: "Color",
     active: "Active",
     hidden: "Hidden",
+    amazon_url: "Amazon URL",
+    amazon_attribution_url: "Amazon Attribution URL",
+    amazon_button_text: "Amazon button text",
+    amazon_button_enabled: "Enable Amazon button",
+    amazon_enabled: "Enabled",
+    amazon_disabled: "Disabled",
+    product_slug: "Product slug",
+    product_name: "Product name",
+    amazon_clicks: "Amazon clicks",
+    click_stats: "Amazon click stats",
+    button_location: "Button location",
+    page_path: "Page path",
+    clicked_at: "Clicked",
+    referrer: "Referrer",
+    utm: "UTM",
+    no_amazon_clicks: "No Amazon clicks yet.",
     description: "Description",
     id: "ID",
     item_lines: "item lines",
@@ -103,7 +124,7 @@ const ADMIN_I18N = {
   },
   zh: {
     login_eyebrow: "店铺后台",
-    login_title: "管理商品、前台页面、客户邮箱和订单。",
+    login_title: "管理商品、前台页面、客户邮箱和 Amazon 点击数据。",
     login_note: "本地默认密码为 admin123。上线前请设置 ADMIN_PASSWORD。",
     password: "密码",
     sign_in: "登录",
@@ -118,7 +139,7 @@ const ADMIN_I18N = {
     nav_storefront: "前台",
     nav_analytics: "数据",
     quick_tasks: "快捷操作",
-    quick_tasks_title: "让店铺随时可以销售",
+    quick_tasks_title: "让 Amazon 引流链路随时可转化",
     manage_products: "管理商品",
     view_emails: "查看客户邮箱",
     edit_homepage: "编辑首页",
@@ -130,7 +151,7 @@ const ADMIN_I18N = {
     add_product: "新增商品",
     save_catalog: "保存目录",
     import_csv: "导入 CSV",
-    product_help: "上传商品图片、编辑销售文案、调整价格，保存后同步到前台。",
+    product_help: "上传商品图片、编辑销售文案、配置 Amazon 链接，保存后同步到前台。",
     import_done: "商品已导入，点击保存目录后发布到前台。",
     photo: "图片",
     upload_image: "上传图片",
@@ -162,6 +183,10 @@ const ADMIN_I18N = {
     hero_subtitle: "首屏副标题",
     support_email: "客服邮箱",
     currency: "货币",
+    ga4_id: "GA4 ID",
+    gtm_id: "Google Tag Manager ID",
+    meta_pixel_id: "Meta Pixel ID",
+    tiktok_pixel_id: "TikTok Pixel ID",
     category: "分类",
     price: "价格",
     compare_at: "划线价",
@@ -171,6 +196,22 @@ const ADMIN_I18N = {
     color: "颜色",
     active: "显示",
     hidden: "隐藏",
+    amazon_url: "Amazon 普通链接",
+    amazon_attribution_url: "Amazon Attribution 链接",
+    amazon_button_text: "Amazon 按钮文案",
+    amazon_button_enabled: "启用 Amazon 按钮",
+    amazon_enabled: "启用",
+    amazon_disabled: "停用",
+    product_slug: "产品 Slug",
+    product_name: "产品名称",
+    amazon_clicks: "Amazon 点击",
+    click_stats: "Amazon 点击统计",
+    button_location: "按钮位置",
+    page_path: "页面路径",
+    clicked_at: "点击时间",
+    referrer: "来源",
+    utm: "UTM",
+    no_amazon_clicks: "暂无 Amazon 点击。",
     description: "描述",
     id: "ID",
     item_lines: "个商品行",
@@ -246,6 +287,7 @@ function showPanel(panelId) {
 function renderMetrics() {
   const metrics = [
     [tr("revenue"), money(adminState.metrics.revenue)],
+    [tr("amazon_clicks"), adminState.metrics.amazonClicks || 0],
     [tr("orders"), adminState.metrics.orders],
     [tr("leads"), adminState.metrics.leads],
     [tr("products"), adminState.products.length]
@@ -263,6 +305,10 @@ function renderSettingsForm() {
     <label>${tr("hero_subtitle")} <textarea name="heroSubtitle" rows="3">${escapeHtml(adminState.settings.heroSubtitle)}</textarea></label>
     <label>${tr("support_email")} <input name="supportEmail" value="${escapeHtml(adminState.settings.supportEmail)}" /></label>
     <label>${tr("currency")} <input name="currency" value="${escapeHtml(adminState.settings.currency || "USD")}" /></label>
+    <label>${tr("ga4_id")} <input name="ga4Id" value="${escapeHtml(adminState.settings.ga4Id || "")}" /></label>
+    <label>${tr("gtm_id")} <input name="gtmId" value="${escapeHtml(adminState.settings.gtmId || "")}" /></label>
+    <label>${tr("meta_pixel_id")} <input name="metaPixelId" value="${escapeHtml(adminState.settings.metaPixelId || "")}" /></label>
+    <label>${tr("tiktok_pixel_id")} <input name="tiktokPixelId" value="${escapeHtml(adminState.settings.tiktokPixelId || "")}" /></label>
   `;
 }
 
@@ -313,7 +359,13 @@ function productForm(product, index) {
           <label>${tr("model_fit")} <input data-field="modelFit" value="${escapeHtml(product.modelFit)}" /></label>
           <label>${tr("active")} <select data-field="active"><option value="true" ${product.active ? "selected" : ""}>${tr("active")}</option><option value="false" ${!product.active ? "selected" : ""}>${tr("hidden")}</option></select></label>
           <label>${tr("color")} <input data-field="color" type="color" value="${escapeHtml(product.color || "#f5ebe0")}" /></label>
+          <label>${tr("product_slug")} <input data-field="productSlug" value="${escapeHtml(product.productSlug || product.id)}" /></label>
+          <label>${tr("product_name")} <input data-field="productName" value="${escapeHtml(product.productName || product.name)}" /></label>
+          <label>${tr("amazon_button_text")} <input data-field="amazonButtonText" value="${escapeHtml(product.amazonButtonText || "Buy on Amazon")}" /></label>
+          <label>${tr("amazon_button_enabled")} <select data-field="amazonButtonEnabled"><option value="true" ${product.amazonButtonEnabled !== false ? "selected" : ""}>${tr("amazon_enabled")}</option><option value="false" ${product.amazonButtonEnabled === false ? "selected" : ""}>${tr("amazon_disabled")}</option></select></label>
         </div>
+        <label>${tr("amazon_url")} <input data-field="amazonUrl" value="${escapeHtml(product.amazonUrl || "")}" /></label>
+        <label>${tr("amazon_attribution_url")} <input data-field="amazonAttributionUrl" value="${escapeHtml(product.amazonAttributionUrl || "")}" /></label>
         <label>${tr("product_copy")} <textarea data-field="description" rows="4">${escapeHtml(product.description)}</textarea></label>
         <label>${tr("id")} <input data-field="id" value="${escapeHtml(product.id)}" /></label>
       </div>
@@ -333,7 +385,7 @@ function collectCatalog() {
     card.querySelectorAll("[data-field]").forEach((input) => {
       let value = input.value;
       if (["price", "compareAt", "inventory"].includes(input.dataset.field)) value = Number(value);
-      if (input.dataset.field === "active") value = value === "true";
+      if (["active", "amazonButtonEnabled"].includes(input.dataset.field)) value = value === "true";
       product[input.dataset.field] = value;
     });
     const images = [...card.querySelectorAll("[data-image-url]")]
@@ -483,6 +535,8 @@ function productFromCsv(record) {
   return {
     id: slug(sku || name),
     name,
+    productName: name,
+    productSlug: slug(sku || name),
     category: categoryFromRecord(name, category),
     price,
     compareAt,
@@ -493,7 +547,13 @@ function productFromCsv(record) {
     images,
     description: csvValue(record, ["description", "item-description", "item description", "bullet-points", "bullets"], `${name} for KitchenAid-compatible stand mixers.`),
     inventory: numeric(csvValue(record, ["inventory", "quantity", "qty", "stock"]), 10),
-    active: !["false", "0", "no", "hidden"].includes(csvValue(record, ["active", "status"], "true").toLowerCase())
+    active: !["false", "0", "no", "hidden"].includes(csvValue(record, ["active", "status"], "true").toLowerCase()),
+    amazonUrl: csvValue(record, ["amazonUrl", "amazon url", "amazon-link", "amazon link"]),
+    amazonAttributionUrl: csvValue(record, ["amazonAttributionUrl", "amazon attribution url", "attribution-url", "attribution url"]),
+    amazonButtonText: csvValue(record, ["amazonButtonText", "amazon button text"], "Buy on Amazon"),
+    amazonButtonEnabled: !["false", "0", "no", "disabled"].includes(
+      csvValue(record, ["amazonButtonEnabled", "amazon enabled", "enable amazon button"], "true").toLowerCase()
+    )
   };
 }
 
@@ -588,6 +648,26 @@ function renderEvents() {
       .join("") || `<p>${tr("no_events")}</p>`;
 }
 
+function renderAmazonClicks() {
+  $("#amazonClicksTable").innerHTML =
+    (adminState.amazonClicks || [])
+      .slice(0, 80)
+      .map((event) => {
+        const payload = event.payload || {};
+        const utm = [payload.utmSource, payload.utmMedium, payload.utmCampaign].filter(Boolean).join(" / ") || "-";
+        return `
+          <tr>
+            <td><strong>${escapeHtml(payload.productName || "-")}</strong><br><small>${escapeHtml(payload.productSlug || "-")}</small></td>
+            <td>${escapeHtml(payload.buttonLocation || "-")}</td>
+            <td>${escapeHtml(payload.pagePath || "-")}<br><small>${escapeHtml(payload.amazonUrl || "-")}</small></td>
+            <td>${escapeHtml(utm)}<br><small>${escapeHtml(payload.referrer || "-")}</small></td>
+            <td>${payload.clickedAt ? new Date(payload.clickedAt).toLocaleString() : new Date(event.createdAt).toLocaleString()}</td>
+          </tr>
+        `;
+      })
+      .join("") || `<tr><td colspan="5">${tr("no_amazon_clicks")}</td></tr>`;
+}
+
 function renderDashboard() {
   $("#loginPanel").classList.add("hidden");
   $("#dashboard").classList.remove("hidden");
@@ -597,6 +677,7 @@ function renderDashboard() {
   renderProducts();
   renderOrders();
   renderLeads();
+  renderAmazonClicks();
   renderEvents();
   showPanel(adminState.activePanel);
 }
@@ -663,6 +744,8 @@ function bindAdmin() {
     adminState.products.unshift({
       id: `product-${Date.now()}`,
       name: tr("new_product"),
+      productName: tr("new_product"),
+      productSlug: `product-${Date.now()}`,
       category: adminState.categories[0]?.id || "baking",
       price: 19,
       compareAt: 29,
@@ -672,7 +755,11 @@ function bindAdmin() {
       image: "https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&fit=crop&w=900&q=80",
       description: tr("short_description"),
       inventory: 10,
-      active: true
+      active: true,
+      amazonUrl: "",
+      amazonAttributionUrl: "",
+      amazonButtonText: "Buy on Amazon",
+      amazonButtonEnabled: false
     });
     renderProducts();
   });

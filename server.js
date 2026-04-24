@@ -15,12 +15,16 @@ const SESSION_TOKENS = new Set();
 const defaultDb = {
   settings: {
     brandName: "MixerAttach",
-    announcement: "Free U.S. shipping over $59",
-    heroTitle: "Premium KitchenAid Accessories",
+    announcement: "Purchases are completed securely on Amazon",
+    heroTitle: "Upgrade Your Stand Mixer for Everyday Cooking",
     heroSubtitle:
-      "Turn your stand mixer into the ultimate cooking tool with perfectly matched parts.",
+      "Discover practical, easy-to-use attachments designed for pasta, prep, and more. Compatible with KitchenAid stand mixers.",
     supportEmail: "support@mixerattach.com",
-    currency: "USD"
+    currency: "USD",
+    ga4Id: "",
+    gtmId: "",
+    metaPixelId: "",
+    tiktokPixelId: ""
   },
   categories: [
     { id: "bowls", name: "Bowls" },
@@ -211,6 +215,8 @@ function contentType(filePath) {
       ".css": "text/css; charset=utf-8",
       ".js": "application/javascript; charset=utf-8",
       ".json": "application/json; charset=utf-8",
+      ".txt": "text/plain; charset=utf-8",
+      ".xml": "application/xml; charset=utf-8",
       ".png": "image/png",
       ".jpg": "image/jpeg",
       ".jpeg": "image/jpeg",
@@ -245,6 +251,43 @@ function hydrateOrderItems(items, products) {
     .filter(Boolean);
 }
 
+function slugify(value) {
+  return (
+    String(value || "")
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-|-$/g, "")
+      .slice(0, 80) || `product-${Date.now()}`
+  );
+}
+
+function normalizeProduct(product) {
+  const productName = product.productName || product.name || "";
+  const productSlug = product.productSlug || slugify(product.id || productName);
+  return {
+    ...product,
+    productName,
+    productSlug,
+    amazonUrl: product.amazonUrl || "",
+    amazonAttributionUrl: product.amazonAttributionUrl || "",
+    amazonButtonText: product.amazonButtonText || "Buy on Amazon",
+    amazonButtonEnabled: product.amazonButtonEnabled !== false
+  };
+}
+
+function normalizeCatalog(db) {
+  db.settings = {
+    ...defaultDb.settings,
+    ...(db.settings || {})
+  };
+  db.products = Array.isArray(db.products) ? db.products.map(normalizeProduct) : [];
+  db.categories = Array.isArray(db.categories) ? db.categories : [];
+  db.orders = Array.isArray(db.orders) ? db.orders : [];
+  db.leads = Array.isArray(db.leads) ? db.leads : [];
+  db.events = Array.isArray(db.events) ? db.events : [];
+  return db;
+}
+
 function recordEvent(db, event) {
   db.events.unshift({
     id: crypto.randomUUID(),
@@ -257,7 +300,7 @@ function recordEvent(db, event) {
 }
 
 async function handleApi(req, res, url) {
-  const db = readDb();
+  const db = normalizeCatalog(readDb());
 
   if (req.method === "GET" && url.pathname === "/api/catalog") {
     sendJson(res, 200, {
@@ -265,6 +308,27 @@ async function handleApi(req, res, url) {
       categories: db.categories,
       products: db.products.filter((product) => product.active)
     });
+    return;
+  }
+
+  if (req.method === "POST" && url.pathname === "/api/amazon-click") {
+    const body = await readBody(req);
+    const payload = {
+      productName: String(body.productName || ""),
+      productSlug: String(body.productSlug || ""),
+      buttonLocation: String(body.buttonLocation || ""),
+      pagePath: String(body.pagePath || body.path || ""),
+      amazonUrl: String(body.amazonUrl || ""),
+      clickedAt: String(body.clickedAt || new Date().toISOString()),
+      referrer: String(body.referrer || ""),
+      utmSource: String(body.utmSource || ""),
+      utmMedium: String(body.utmMedium || ""),
+      utmCampaign: String(body.utmCampaign || ""),
+      userAgent: String(body.userAgent || req.headers["user-agent"] || "")
+    };
+    recordEvent(db, { type: "amazon_click", payload, path: payload.pagePath });
+    writeDb(db);
+    sendJson(res, 201, { ok: true });
     return;
   }
 
@@ -344,6 +408,7 @@ async function handleApi(req, res, url) {
 
     if (req.method === "GET" && url.pathname === "/api/admin/dashboard") {
       const revenue = db.orders.reduce((sum, order) => sum + Number(order.total || 0), 0);
+      const amazonClicks = db.events.filter((event) => event.type === "amazon_click");
       sendJson(res, 200, {
         settings: db.settings,
         categories: db.categories,
@@ -351,11 +416,13 @@ async function handleApi(req, res, url) {
         orders: db.orders,
         leads: db.leads,
         events: db.events,
+        amazonClicks,
         metrics: {
           revenue,
           orders: db.orders.length,
           leads: db.leads.length,
-          events: db.events.length
+          events: db.events.length,
+          amazonClicks: amazonClicks.length
         }
       });
       return;
@@ -365,7 +432,7 @@ async function handleApi(req, res, url) {
       const body = await readBody(req);
       db.settings = { ...db.settings, ...(body.settings || {}) };
       db.categories = Array.isArray(body.categories) ? body.categories : db.categories;
-      db.products = Array.isArray(body.products) ? body.products : db.products;
+      db.products = Array.isArray(body.products) ? body.products.map(normalizeProduct) : db.products;
       writeDb(db);
       sendJson(res, 200, { ok: true });
       return;

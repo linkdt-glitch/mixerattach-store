@@ -5,9 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Premium KitchenAid-compatible accessories storefront with multilingual support."
+      content="Discover practical attachments for stand mixers, including pasta and kitchen prep accessories. Compatible with KitchenAid stand mixers. Shop securely on Amazon."
     />
-    <title>MixerAttach | KitchenAid-Compatible Accessories</title>
+    <link rel="canonical" href="https://www.standmixermate.com/" />
+    <meta property="og:title" content="Premium Stand Mixer Attachments | Compatible with KitchenAid Stand Mixers" />
+    <meta
+      property="og:description"
+      content="Discover practical attachments for stand mixers, including pasta and kitchen prep accessories. Compatible with KitchenAid stand mixers. Shop securely on Amazon."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.standmixermate.com/" />
+    <title>Premium Stand Mixer Attachments | Compatible with KitchenAid Stand Mixers</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -31,7 +39,7 @@
         </nav>
         <div class="header-actions">
           <a class="admin-link" href="/admin.html" data-i18n="nav_admin">Admin</a>
-          <button class="cart-button" id="cartButton" type="button" aria-label="Open cart">
+          <button class="cart-button" id="cartButton" type="button" aria-label="Open cart" hidden>
             <span data-i18n="cart">Cart</span>
             <strong id="cartCount">0</strong>
           </button>
@@ -73,6 +81,9 @@
             <a href="#products" class="btn btn-primary" data-i18n="hero_cta1">Shop Now</a>
             <a href="#categories" class="btn btn-secondary" data-i18n="hero_cta2">Learn More</a>
           </div>
+          <p class="eyebrow light" data-i18n="amazon_checkout_note">
+            Secure checkout, shipping, and returns are handled by Amazon.
+          </p>
         </div>
       </section>
 
@@ -127,7 +138,7 @@
             <p class="eyebrow light" data-i18n="finder_eyebrow">Fit finder</p>
             <h2 data-i18n="finder_title">Not sure which attachment fits?</h2>
             <p data-i18n="finder_text">
-              Answer two quick questions and we will build a starter cart for your mixer style.
+              Answer two quick questions and we will show Amazon-ready options for your mixer style.
             </p>
           </div>
           <form class="finder-panel" id="finderForm">
@@ -235,12 +246,81 @@
             </div>
             <div class="trust-item">
               <div class="trust-icon">💳</div>
-              <span data-i18n="trust_t3">Secure Checkout</span>
+              <span data-i18n="trust_t3">Secure Amazon Checkout</span>
             </div>
             <div class="trust-item">
               <div class="trust-icon">💬</div>
               <span data-i18n="trust_t4">Fit Support</span>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="value-props" id="faq">
+        <div class="container">
+          <h2 class="section-title" data-i18n="faq_title">FAQ</h2>
+          <div class="value-grid">
+            <article class="value-card">
+              <h3 data-i18n="faq_q1">Do you sell directly on this website?</h3>
+              <p data-i18n="faq_a1">
+                No. This website provides product information, guides, and recipes. Purchases are completed securely on Amazon.
+              </p>
+            </article>
+            <article class="value-card">
+              <h3 data-i18n="faq_q2">Where do I complete my purchase?</h3>
+              <p data-i18n="faq_a2">You can click the Amazon button on each product page to complete your purchase on Amazon.</p>
+            </article>
+            <article class="value-card">
+              <h3 data-i18n="faq_q3">Who handles shipping and returns?</h3>
+              <p data-i18n="faq_a3">
+                Since purchases are completed on Amazon, checkout, shipping, returns, and refunds are handled through Amazon.
+              </p>
+            </article>
+            <article class="value-card">
+              <h3 data-i18n="faq_q4">Are you affiliated with KitchenAid?</h3>
+              <p data-i18n="faq_a4">
+                No. Our products are compatible with KitchenAid stand mixers, but they are not manufactured by, endorsed by, or
+                affiliated with KitchenAid.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="newsletter" id="amazon-notice">
+        <div class="container">
+          <h2 data-i18n="legal_title">Amazon Purchase Notice</h2>
+          <p data-i18n="legal_notice">
+            This website provides product information, guides, and recommendations. Purchases are completed on Amazon. Product
+            prices, availability, shipping, returns, and refunds are managed by Amazon and may vary. We do not collect payment
+            information on this website.
+          </p>
+        </div>
+      </section>
+
+      <section class="value-props" id="disclaimer">
+        <div class="container">
+          <h2 class="section-title" data-i18n="disclaimer_title">Disclaimer</h2>
+          <div class="value-grid">
+            <article class="value-card">
+              <p data-i18n="disclaimer_text">
+                This product is compatible with KitchenAid stand mixers. It is not manufactured by, endorsed by, or affiliated
+                with KitchenAid.
+              </p>
+            </article>
+            <article class="value-card" id="privacy">
+              <h3 data-i18n="privacy_title">Privacy Policy</h3>
+              <p data-i18n="privacy_text">
+                We collect email signups and site interaction data to improve product guides, recipes, and Amazon deal alerts. We
+                do not collect payment information on this website.
+              </p>
+            </article>
+            <article class="value-card">
+              <h3 data-i18n="faq_q5">Can I check the latest price on this website?</h3>
+              <p data-i18n="faq_a5">
+                Prices and availability may change. Please check the Amazon product page for the most accurate information.
+              </p>
+            </article>
           </div>
         </div>
       </section>
@@ -258,7 +338,7 @@
           <strong id="cartTotal">$0</strong>
         </div>
         <button class="btn btn-primary" id="checkoutButton" type="button" data-i18n="checkout">
-          Checkout
+          Buy on Amazon
         </button>
       </div>
     </aside>
@@ -268,8 +348,8 @@
       <form method="dialog" class="checkout-form" id="checkoutForm">
         <div class="dialog-header">
           <div>
-            <p class="eyebrow" data-i18n="checkout_eyebrow">Secure order request</p>
-            <h2 data-i18n="checkout_title">Where should we send your parts?</h2>
+            <p class="eyebrow" data-i18n="checkout_eyebrow">Amazon purchase notice</p>
+            <h2 data-i18n="checkout_title">Purchases are completed on Amazon.</h2>
           </div>
           <button class="ghost-button" id="closeCheckout" type="button" data-i18n="close">Close</button>
         </div>
@@ -281,7 +361,7 @@
           <textarea name="address" rows="3" required></textarea>
         </label>
         <label><span data-i18n="field_notes">Notes</span> <textarea name="notes" rows="2"></textarea></label>
-        <button class="btn btn-primary" type="submit" data-i18n="place_order">Place order request</button>
+        <button class="btn btn-primary" type="submit" data-i18n="place_order">Buy on Amazon</button>
       </form>
     </dialog>
 
@@ -305,6 +385,10 @@
             <div id="supportEmail">support@mixerattach.com</div>
             <div>1-800-MIXER</div>
             <div>California, USA</div>
+            <p data-i18n="contact_amazon_notice">
+              If you purchased through Amazon, please manage order tracking, shipping, return, or refund requests directly through
+              your Amazon account.
+            </p>
           </div>
         </div>
         <div class="footer-links">
@@ -323,10 +407,10 @@
         </div>
         <div class="footer-links">
           <h4 data-i18n="footer_support">Support</h4>
-          <a href="#contact" data-i18n="footer_shipping">Shipping Info</a>
-          <a href="#contact" data-i18n="footer_returns">Returns</a>
+          <a href="#amazon-notice" data-i18n="footer_shipping">Shipping Info</a>
+          <a href="#privacy" data-i18n="footer_returns">Returns</a>
           <a href="#contact" data-i18n="footer_warranty">Warranty</a>
-          <a href="#contact" data-i18n="footer_track">Order Tracking</a>
+          <a href="#disclaimer" data-i18n="footer_track">Order Tracking</a>
         </div>
       </div>
       <div class="container copyright">

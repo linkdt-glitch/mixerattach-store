@@ -14,17 +14,17 @@ const currency = (value) => `$${Number(value || 0).toFixed(0)}`;
 const I18N = {
   en: {
     langLabel: "🇺🇸 English",
-    announcement: "Free U.S. shipping over $59",
+    announcement: "Purchases are completed securely on Amazon",
     nav_products: "Products",
     nav_categories: "Categories",
     nav_reviews: "Reviews",
     nav_contact: "Contact Us",
     nav_admin: "Admin",
     cart: "Cart",
-    hero_title: "Premium KitchenAid Accessories",
+    hero_title: "Upgrade Your Stand Mixer for Everyday Cooking",
     hero_subtitle:
-      "Turn your stand mixer into the ultimate cooking tool with perfectly matched parts.",
-    hero_cta1: "Shop Now",
+      "Discover practical, easy-to-use attachments designed for pasta, prep, and more. Compatible with KitchenAid stand mixers.",
+    hero_cta1: "Shop on Amazon",
     hero_cta2: "Learn More",
     value_title: "Why Choose Us",
     v1_title: "Premium Quality",
@@ -38,14 +38,20 @@ const I18N = {
     cat_title: "Shop by Category",
     product_title: "Best Sellers",
     all_parts: "All parts",
-    add_to_cart: "Add to cart",
+    add_to_cart: "Buy on Amazon",
+    buy_on_amazon: "Buy on Amazon",
+    check_price_amazon: "Check Price on Amazon",
+    view_availability_amazon: "View Availability on Amazon",
+    amazon_not_configured: "Amazon link not configured",
+    amazon_checkout_note: "Secure checkout, shipping, and returns are handled by Amazon.",
+    amazon_purchase_notice_short: "Purchases are completed on Amazon. Please visit a product and click Buy on Amazon.",
     view_details: "View details",
     product_details: "Product details",
-    buy_now: "Buy now",
+    buy_now: "Buy on Amazon",
     in_stock: "in stock",
     finder_eyebrow: "Fit finder",
     finder_title: "Not sure which attachment fits?",
-    finder_text: "Answer two quick questions and we will build a starter cart for your mixer style.",
+    finder_text: "Answer two quick questions and we will show Amazon-ready options for your mixer style.",
     finder_style: "Mixer style",
     finder_use: "Main use",
     style_tilt: "Tilt-head",
@@ -53,8 +59,8 @@ const I18N = {
     use_baking: "Cookies and cakes",
     use_bread: "Bread and pizza dough",
     use_clean: "Replacement and care",
-    finder_btn: "Build my kit",
-    finder_done: "A matched kit was added to your cart.",
+    finder_btn: "Find Amazon options",
+    finder_done: "Matched products are shown. Check price and availability on Amazon.",
     review_title: "Customer Reviews",
     r1_title: "Amazing Quality!",
     r1_text: "Perfect fit for my mixer. Making weekend baking prep is so much easier.",
@@ -62,58 +68,80 @@ const I18N = {
     r2_text: "Excellent quality and price. Easy to clean and simple to install.",
     r3_title: "Love It!",
     r3_text: "Works perfectly with my stand mixer. Fast shipping and helpful support.",
-    news_title: "Subscribe for Deals",
-    news_subtitle: "Get new arrivals, model-specific offers, and care tips first.",
+    news_title: "Get recipes and deal alerts",
+    news_subtitle: "Get free recipes, product tips, and Amazon deal alerts.",
     name_placeholder: "Name",
     news_placeholder: "Enter your email",
     interest_placeholder: "Mixer model or part needed",
-    news_btn: "Subscribe",
+    news_btn: "Send Me the Guide",
     lead_ok: "You are on the list.",
     lead_error: "Please enter a valid email.",
-    trust_t1: "Free Shipping",
-    trust_t2: "30-Day Returns",
-    trust_t3: "Secure Checkout",
+    trust_t1: "Amazon Shipping",
+    trust_t2: "Amazon Returns",
+    trust_t3: "Secure Amazon Checkout",
     trust_t4: "Fit Support",
     cart_title: "Your cart",
     empty_cart: "Your cart is empty.",
     close: "Close",
     total: "Total",
-    checkout: "Checkout",
+    checkout: "Buy on Amazon",
     checkout_empty: "Add at least one item first.",
-    checkout_eyebrow: "Secure order request",
-    checkout_title: "Where should we send your parts?",
+    checkout_eyebrow: "Amazon purchase notice",
+    checkout_title: "Purchases are completed on Amazon.",
     field_name: "Name",
     field_email: "Email",
     field_phone: "Phone",
     field_address: "Shipping address",
     field_notes: "Notes",
-    place_order: "Place order request",
+    place_order: "Buy on Amazon",
     order_received: "Order request {id} received.",
     order_error: "Order could not be placed.",
-    footer_about: "Premium KitchenAid-compatible accessories for cooking-loving homes.",
+    footer_about: "Practical attachments compatible with KitchenAid stand mixers. Purchases are completed on Amazon.",
     footer_products: "Products",
     footer_company: "Company",
     footer_aboutus: "About Us",
     footer_fit: "Fit Finder",
     footer_support: "Support",
-    footer_shipping: "Shipping Info",
-    footer_returns: "Returns",
+    footer_shipping: "Amazon Purchase Notice",
+    footer_returns: "Privacy Policy",
     footer_warranty: "Warranty",
-    footer_track: "Order Tracking",
-    footer_rights: "All rights reserved."
+    footer_track: "Disclaimer",
+    footer_rights: "All rights reserved.",
+    contact_amazon_notice:
+      "If you purchased through Amazon, please manage order tracking, shipping, return, or refund requests directly through your Amazon account.",
+    faq_title: "FAQ",
+    faq_q1: "Do you sell directly on this website?",
+    faq_a1: "No. This website provides product information, guides, and recipes. Purchases are completed securely on Amazon.",
+    faq_q2: "Where do I complete my purchase?",
+    faq_a2: "You can click the Amazon button on each product page to complete your purchase on Amazon.",
+    faq_q3: "Who handles shipping and returns?",
+    faq_a3: "Since purchases are completed on Amazon, checkout, shipping, returns, and refunds are handled through Amazon.",
+    faq_q4: "Are you affiliated with KitchenAid?",
+    faq_a4: "No. Our products are compatible with KitchenAid stand mixers, but they are not manufactured by, endorsed by, or affiliated with KitchenAid.",
+    faq_q5: "Can I check the latest price on this website?",
+    faq_a5: "Prices and availability may change. Please check the Amazon product page for the most accurate information.",
+    legal_title: "Amazon Purchase Notice",
+    legal_notice:
+      "This website provides product information, guides, and recommendations. Purchases are completed on Amazon. Product prices, availability, shipping, returns, and refunds are managed by Amazon and may vary. We do not collect payment information on this website.",
+    disclaimer_title: "Disclaimer",
+    disclaimer_text:
+      "This product is compatible with KitchenAid stand mixers. It is not manufactured by, endorsed by, or affiliated with KitchenAid.",
+    privacy_title: "Privacy Policy",
+    privacy_text:
+      "We collect email signups and site interaction data to improve product guides, recipes, and Amazon deal alerts. We do not collect payment information on this website."
   },
   zh: {
     langLabel: "🇨🇳 中文",
-    announcement: "满 $59 美国境内免运费",
+    announcement: "购买将在 Amazon 安全完成",
     nav_products: "产品",
     nav_categories: "分类",
     nav_reviews: "评价",
     nav_contact: "联系我们",
     nav_admin: "后台",
     cart: "购物车",
-    hero_title: "优质 KitchenAid 兼容配件",
-    hero_subtitle: "让您的厨师机升级成多功能厨房工具，配件匹配更清楚，购买更省心。",
-    hero_cta1: "立即选购",
+    hero_title: "升级您的厨师机，轻松完成日常料理",
+    hero_subtitle: "探索适合意面、备菜等场景的实用配件。Compatible with KitchenAid stand mixers。",
+    hero_cta1: "前往 Amazon 选购",
     hero_cta2: "了解更多",
     value_title: "为什么选择我们",
     v1_title: "优质品质",
@@ -127,14 +155,20 @@ const I18N = {
     cat_title: "按类别选购",
     product_title: "热销产品",
     all_parts: "全部配件",
-    add_to_cart: "加入购物车",
+    add_to_cart: "在 Amazon 购买",
+    buy_on_amazon: "在 Amazon 购买",
+    check_price_amazon: "在 Amazon 查看价格",
+    view_availability_amazon: "在 Amazon 查看库存",
+    amazon_not_configured: "Amazon 链接未配置",
+    amazon_checkout_note: "安全结账、配送和退换货均由 Amazon 处理。",
+    amazon_purchase_notice_short: "购买将在 Amazon 完成。请进入产品并点击在 Amazon 购买。",
     view_details: "查看详情",
     product_details: "商品详情",
-    buy_now: "立即购买",
+    buy_now: "在 Amazon 购买",
     in_stock: "件库存",
     finder_eyebrow: "适配导购",
     finder_title: "不确定哪款配件适合？",
-    finder_text: "回答两个问题，我们会根据厨师机类型帮您自动组合入门套装。",
+    finder_text: "回答两个问题，我们会展示适合您厨师机类型、可跳转 Amazon 的产品。",
     finder_style: "厨师机类型",
     finder_use: "主要用途",
     style_tilt: "抬头式",
@@ -142,8 +176,8 @@ const I18N = {
     use_baking: "饼干和蛋糕",
     use_bread: "面包和披萨面团",
     use_clean: "替换和保养",
-    finder_btn: "生成套装",
-    finder_done: "已把匹配套装加入购物车。",
+    finder_btn: "查找 Amazon 产品",
+    finder_done: "已显示匹配产品，请在 Amazon 查看价格和库存。",
     review_title: "客户评价",
     r1_title: "品质很棒！",
     r1_text: "和我的厨师机适配很好，周末烘焙准备轻松多了。",
@@ -151,59 +185,79 @@ const I18N = {
     r2_text: "质量和价格都不错，容易清洗，安装也简单。",
     r3_title: "非常喜欢！",
     r3_text: "和我的厨师机配合顺手，发货快，客服也很有帮助。",
-    news_title: "订阅获取优惠",
-    news_subtitle: "第一时间获取新品、型号专属优惠和保养技巧。",
+    news_title: "获取食谱和优惠提醒",
+    news_subtitle: "获取免费食谱、产品技巧和 Amazon 优惠提醒。",
     name_placeholder: "姓名",
     news_placeholder: "输入您的邮箱",
     interest_placeholder: "厨师机型号或所需配件",
-    news_btn: "订阅",
+    news_btn: "发送指南给我",
     lead_ok: "已加入订阅列表。",
     lead_error: "请输入有效邮箱。",
-    trust_t1: "免费配送",
-    trust_t2: "30 天退换",
-    trust_t3: "安全结账",
+    trust_t1: "Amazon 配送",
+    trust_t2: "Amazon 退换",
+    trust_t3: "Amazon 安全结账",
     trust_t4: "适配支持",
     cart_title: "您的购物车",
     empty_cart: "购物车为空。",
     close: "关闭",
     total: "合计",
-    checkout: "结账",
+    checkout: "在 Amazon 购买",
     checkout_empty: "请先添加至少一件商品。",
-    checkout_eyebrow: "安全订单请求",
-    checkout_title: "您的配件寄到哪里？",
+    checkout_eyebrow: "Amazon 购买说明",
+    checkout_title: "购买将在 Amazon 完成。",
     field_name: "姓名",
     field_email: "邮箱",
     field_phone: "电话",
     field_address: "收货地址",
     field_notes: "备注",
-    place_order: "提交订单请求",
+    place_order: "在 Amazon 购买",
     order_received: "订单请求 {id} 已收到。",
     order_error: "订单提交失败。",
-    footer_about: "为热爱烹饪的家庭提供优质 KitchenAid 兼容配件。",
+    footer_about: "适用于 KitchenAid 厨师机的实用配件展示站。购买将在 Amazon 完成。",
     footer_products: "产品",
     footer_company: "公司",
     footer_aboutus: "关于我们",
     footer_fit: "适配导购",
     footer_support: "支持",
-    footer_shipping: "配送信息",
-    footer_returns: "退换货",
+    footer_shipping: "Amazon 购买说明",
+    footer_returns: "隐私政策",
     footer_warranty: "质保",
-    footer_track: "订单追踪",
-    footer_rights: "保留所有权利。"
+    footer_track: "免责声明",
+    footer_rights: "保留所有权利。",
+    contact_amazon_notice: "如果您通过 Amazon 购买，请在 Amazon 账户中处理订单追踪、配送、退货或退款请求。",
+    faq_title: "常见问题",
+    faq_q1: "这个网站直接销售产品吗？",
+    faq_a1: "不直接销售。本网站提供产品信息、指南和食谱，购买将在 Amazon 安全完成。",
+    faq_q2: "我在哪里完成购买？",
+    faq_a2: "您可以点击每个产品上的 Amazon 按钮，在 Amazon 完成购买。",
+    faq_q3: "谁负责配送和退换货？",
+    faq_a3: "由于购买在 Amazon 完成，结账、配送、退货和退款均由 Amazon 处理。",
+    faq_q4: "你们和 KitchenAid 有官方合作吗？",
+    faq_a4: "没有。我们的产品 Compatible with KitchenAid stand mixers，但并非由 KitchenAid 制造、认可或关联。",
+    faq_q5: "网站上的价格是最新的吗？",
+    faq_a5: "价格和库存可能变化，请以 Amazon 产品页面为准。",
+    legal_title: "Amazon 购买说明",
+    legal_notice:
+      "本网站提供产品信息、指南和推荐。购买将在 Amazon 完成。产品价格、库存、配送、退货和退款由 Amazon 管理且可能变化。我们不会在本网站收集支付信息。",
+    disclaimer_title: "免责声明",
+    disclaimer_text:
+      "This product is compatible with KitchenAid stand mixers. It is not manufactured by, endorsed by, or affiliated with KitchenAid.",
+    privacy_title: "隐私政策",
+    privacy_text: "我们会收集邮箱订阅和站内互动数据，用于优化产品指南、食谱和 Amazon 优惠提醒。本网站不收集支付信息。"
   },
   fr: {
     langLabel: "🇫🇷 Français",
-    announcement: "Livraison offerte aux États-Unis dès 59 $",
+    announcement: "Achats finalisés en toute sécurité sur Amazon",
     nav_products: "Produits",
     nav_categories: "Catégories",
     nav_reviews: "Avis",
     nav_contact: "Contact",
     nav_admin: "Admin",
     cart: "Panier",
-    hero_title: "Accessoires KitchenAid compatibles premium",
+    hero_title: "Améliorez votre robot pâtissier pour la cuisine quotidienne",
     hero_subtitle:
-      "Transformez votre robot pâtissier en outil de cuisine polyvalent avec des pièces bien adaptées.",
-    hero_cta1: "Acheter",
+      "Découvrez des accessoires pratiques et faciles à utiliser pour les pâtes, la préparation et plus encore. Compatible with KitchenAid stand mixers.",
+    hero_cta1: "Acheter sur Amazon",
     hero_cta2: "En savoir plus",
     value_title: "Pourquoi nous choisir",
     v1_title: "Qualité premium",
@@ -217,14 +271,20 @@ const I18N = {
     cat_title: "Acheter par catégorie",
     product_title: "Meilleures ventes",
     all_parts: "Toutes les pièces",
-    add_to_cart: "Ajouter au panier",
+    add_to_cart: "Acheter sur Amazon",
+    buy_on_amazon: "Acheter sur Amazon",
+    check_price_amazon: "Voir le prix sur Amazon",
+    view_availability_amazon: "Voir la disponibilité sur Amazon",
+    amazon_not_configured: "Lien Amazon non configuré",
+    amazon_checkout_note: "Le paiement sécurisé, la livraison et les retours sont gérés par Amazon.",
+    amazon_purchase_notice_short: "Les achats sont finalisés sur Amazon. Ouvrez un produit et cliquez sur Acheter sur Amazon.",
     view_details: "Voir détails",
     product_details: "Détails produit",
-    buy_now: "Acheter",
+    buy_now: "Acheter sur Amazon",
     in_stock: "en stock",
     finder_eyebrow: "Guide de compatibilité",
     finder_title: "Vous ne savez pas quel accessoire convient ?",
-    finder_text: "Répondez à deux questions et nous créerons un panier de départ adapté.",
+    finder_text: "Répondez à deux questions et nous afficherons des options prêtes pour Amazon.",
     finder_style: "Type de robot",
     finder_use: "Utilisation principale",
     style_tilt: "Tête inclinable",
@@ -232,8 +292,8 @@ const I18N = {
     use_baking: "Biscuits et gâteaux",
     use_bread: "Pain et pâte à pizza",
     use_clean: "Remplacement et entretien",
-    finder_btn: "Créer mon kit",
-    finder_done: "Un kit adapté a été ajouté au panier.",
+    finder_btn: "Trouver sur Amazon",
+    finder_done: "Produits adaptés affichés. Vérifiez le prix et la disponibilité sur Amazon.",
     review_title: "Avis clients",
     r1_title: "Qualité incroyable !",
     r1_text: "Parfait pour mon robot. La préparation du week-end est beaucoup plus simple.",
@@ -241,59 +301,81 @@ const I18N = {
     r2_text: "Bonne qualité, bon prix, facile à nettoyer et simple à installer.",
     r3_title: "J'adore !",
     r3_text: "Fonctionne parfaitement avec mon robot. Livraison rapide et support utile.",
-    news_title: "Inscrivez-vous aux offres",
-    news_subtitle: "Recevez les nouveautés, offres par modèle et conseils d'entretien.",
+    news_title: "Recevez recettes et alertes offres",
+    news_subtitle: "Recevez des recettes gratuites, conseils produit et alertes offres Amazon.",
     name_placeholder: "Nom",
     news_placeholder: "Votre e-mail",
     interest_placeholder: "Modèle du robot ou pièce souhaitée",
-    news_btn: "S'inscrire",
+    news_btn: "M'envoyer le guide",
     lead_ok: "Vous êtes inscrit.",
     lead_error: "Veuillez saisir un e-mail valide.",
-    trust_t1: "Livraison gratuite",
-    trust_t2: "Retours 30 jours",
-    trust_t3: "Paiement sécurisé",
+    trust_t1: "Livraison Amazon",
+    trust_t2: "Retours Amazon",
+    trust_t3: "Paiement Amazon sécurisé",
     trust_t4: "Aide compatibilité",
     cart_title: "Votre panier",
     empty_cart: "Votre panier est vide.",
     close: "Fermer",
     total: "Total",
-    checkout: "Commander",
+    checkout: "Acheter sur Amazon",
     checkout_empty: "Ajoutez d'abord au moins un article.",
-    checkout_eyebrow: "Demande de commande sécurisée",
-    checkout_title: "Où devons-nous envoyer vos pièces ?",
+    checkout_eyebrow: "Notice d'achat Amazon",
+    checkout_title: "Les achats sont finalisés sur Amazon.",
     field_name: "Nom",
     field_email: "E-mail",
     field_phone: "Téléphone",
     field_address: "Adresse de livraison",
     field_notes: "Notes",
-    place_order: "Envoyer la demande",
+    place_order: "Acheter sur Amazon",
     order_received: "Demande de commande {id} reçue.",
     order_error: "La commande n'a pas pu être envoyée.",
-    footer_about: "Accessoires KitchenAid compatibles premium pour les foyers passionnés de cuisine.",
+    footer_about: "Accessoires pratiques compatibles avec les robots pâtissiers KitchenAid. Les achats sont finalisés sur Amazon.",
     footer_products: "Produits",
     footer_company: "Entreprise",
     footer_aboutus: "À propos",
     footer_fit: "Guide de compatibilité",
     footer_support: "Support",
-    footer_shipping: "Livraison",
-    footer_returns: "Retours",
+    footer_shipping: "Notice d'achat Amazon",
+    footer_returns: "Confidentialité",
     footer_warranty: "Garantie",
-    footer_track: "Suivi de commande",
-    footer_rights: "Tous droits réservés."
+    footer_track: "Disclaimer",
+    footer_rights: "Tous droits réservés.",
+    contact_amazon_notice:
+      "Si vous avez acheté via Amazon, gérez le suivi, la livraison, les retours ou remboursements depuis votre compte Amazon.",
+    faq_title: "FAQ",
+    faq_q1: "Vendez-vous directement sur ce site ?",
+    faq_a1: "Non. Ce site fournit des informations produit, guides et recettes. Les achats sont finalisés sur Amazon.",
+    faq_q2: "Où finaliser mon achat ?",
+    faq_a2: "Cliquez sur le bouton Amazon de chaque produit pour finaliser votre achat sur Amazon.",
+    faq_q3: "Qui gère la livraison et les retours ?",
+    faq_a3: "Comme les achats sont finalisés sur Amazon, paiement, livraison, retours et remboursements sont gérés par Amazon.",
+    faq_q4: "Êtes-vous affilié à KitchenAid ?",
+    faq_a4: "Non. Nos produits sont compatibles avec les robots KitchenAid, mais ne sont ni fabriqués, ni approuvés, ni affiliés à KitchenAid.",
+    faq_q5: "Puis-je voir le dernier prix ici ?",
+    faq_a5: "Les prix et disponibilités peuvent changer. Consultez la page Amazon pour l'information la plus exacte.",
+    legal_title: "Notice d'achat Amazon",
+    legal_notice:
+      "Ce site fournit des informations, guides et recommandations. Les achats sont finalisés sur Amazon. Prix, disponibilité, livraison, retours et remboursements sont gérés par Amazon et peuvent varier. Nous ne collectons pas d'informations de paiement sur ce site.",
+    disclaimer_title: "Disclaimer",
+    disclaimer_text:
+      "This product is compatible with KitchenAid stand mixers. It is not manufactured by, endorsed by, or affiliated with KitchenAid.",
+    privacy_title: "Politique de confidentialité",
+    privacy_text:
+      "Nous collectons les inscriptions e-mail et interactions du site pour améliorer les guides, recettes et alertes offres Amazon. Nous ne collectons pas d'informations de paiement."
   },
   es: {
     langLabel: "🇪🇸 Español",
-    announcement: "Envío gratis en EE. UU. desde $59",
+    announcement: "Las compras se completan de forma segura en Amazon",
     nav_products: "Productos",
     nav_categories: "Categorías",
     nav_reviews: "Reseñas",
     nav_contact: "Contacto",
     nav_admin: "Admin",
     cart: "Carrito",
-    hero_title: "Accesorios KitchenAid compatibles premium",
+    hero_title: "Mejora tu batidora de pedestal para cocinar a diario",
     hero_subtitle:
-      "Convierte tu batidora de pedestal en una herramienta de cocina completa con piezas bien adaptadas.",
-    hero_cta1: "Comprar ahora",
+      "Descubre accesorios prácticos y fáciles de usar para pasta, preparación y más. Compatible with KitchenAid stand mixers.",
+    hero_cta1: "Comprar en Amazon",
     hero_cta2: "Saber más",
     value_title: "Por qué elegirnos",
     v1_title: "Calidad premium",
@@ -307,14 +389,20 @@ const I18N = {
     cat_title: "Comprar por categoría",
     product_title: "Más vendidos",
     all_parts: "Todas las piezas",
-    add_to_cart: "Añadir al carrito",
+    add_to_cart: "Comprar en Amazon",
+    buy_on_amazon: "Comprar en Amazon",
+    check_price_amazon: "Ver precio en Amazon",
+    view_availability_amazon: "Ver disponibilidad en Amazon",
+    amazon_not_configured: "Enlace de Amazon no configurado",
+    amazon_checkout_note: "El pago seguro, envío y devoluciones son gestionados por Amazon.",
+    amazon_purchase_notice_short: "Las compras se completan en Amazon. Abre un producto y haz clic en Comprar en Amazon.",
     view_details: "Ver detalles",
     product_details: "Detalles del producto",
-    buy_now: "Comprar",
+    buy_now: "Comprar en Amazon",
     in_stock: "en stock",
     finder_eyebrow: "Buscador de ajuste",
     finder_title: "¿No sabes qué accesorio encaja?",
-    finder_text: "Responde dos preguntas y crearemos un carrito inicial para tu tipo de batidora.",
+    finder_text: "Responde dos preguntas y mostraremos opciones listas para Amazon.",
     finder_style: "Tipo de batidora",
     finder_use: "Uso principal",
     style_tilt: "Cabezal inclinable",
@@ -322,8 +410,8 @@ const I18N = {
     use_baking: "Galletas y pasteles",
     use_bread: "Pan y masa de pizza",
     use_clean: "Reemplazo y cuidado",
-    finder_btn: "Crear mi kit",
-    finder_done: "Se añadió un kit compatible al carrito.",
+    finder_btn: "Buscar en Amazon",
+    finder_done: "Productos compatibles mostrados. Revisa precio y disponibilidad en Amazon.",
     review_title: "Reseñas de clientes",
     r1_title: "¡Calidad increíble!",
     r1_text: "Encaja perfecto con mi batidora. Preparar repostería es mucho más fácil.",
@@ -331,45 +419,67 @@ const I18N = {
     r2_text: "Excelente calidad y precio. Fácil de limpiar y simple de instalar.",
     r3_title: "¡Me encanta!",
     r3_text: "Funciona perfecto con mi batidora. Envío rápido y soporte útil.",
-    news_title: "Suscríbete a ofertas",
-    news_subtitle: "Recibe novedades, ofertas por modelo y consejos de cuidado.",
+    news_title: "Recibe recetas y alertas de ofertas",
+    news_subtitle: "Recibe recetas gratis, consejos de producto y alertas de ofertas de Amazon.",
     name_placeholder: "Nombre",
     news_placeholder: "Tu correo electrónico",
     interest_placeholder: "Modelo de batidora o pieza necesaria",
-    news_btn: "Suscribirme",
+    news_btn: "Envíame la guía",
     lead_ok: "Ya estás en la lista.",
     lead_error: "Introduce un correo electrónico válido.",
-    trust_t1: "Envío gratis",
-    trust_t2: "Devolución 30 días",
-    trust_t3: "Pago seguro",
+    trust_t1: "Envío de Amazon",
+    trust_t2: "Devoluciones Amazon",
+    trust_t3: "Pago seguro en Amazon",
     trust_t4: "Soporte de ajuste",
     cart_title: "Tu carrito",
     empty_cart: "Tu carrito está vacío.",
     close: "Cerrar",
     total: "Total",
-    checkout: "Pagar",
+    checkout: "Comprar en Amazon",
     checkout_empty: "Añade al menos un producto primero.",
-    checkout_eyebrow: "Solicitud de pedido segura",
-    checkout_title: "¿Dónde enviamos tus piezas?",
+    checkout_eyebrow: "Aviso de compra Amazon",
+    checkout_title: "Las compras se completan en Amazon.",
     field_name: "Nombre",
     field_email: "Correo electrónico",
     field_phone: "Teléfono",
     field_address: "Dirección de envío",
     field_notes: "Notas",
-    place_order: "Enviar solicitud",
+    place_order: "Comprar en Amazon",
     order_received: "Solicitud de pedido {id} recibida.",
     order_error: "No se pudo enviar el pedido.",
-    footer_about: "Accesorios KitchenAid compatibles premium para hogares amantes de la cocina.",
+    footer_about: "Accesorios prácticos compatibles con batidoras KitchenAid. Las compras se completan en Amazon.",
     footer_products: "Productos",
     footer_company: "Empresa",
     footer_aboutus: "Sobre nosotros",
     footer_fit: "Buscador de ajuste",
     footer_support: "Soporte",
-    footer_shipping: "Envío",
-    footer_returns: "Devoluciones",
+    footer_shipping: "Aviso de compra Amazon",
+    footer_returns: "Privacidad",
     footer_warranty: "Garantía",
-    footer_track: "Seguimiento",
-    footer_rights: "Todos los derechos reservados."
+    footer_track: "Aviso legal",
+    footer_rights: "Todos los derechos reservados.",
+    contact_amazon_notice:
+      "Si compraste en Amazon, gestiona seguimiento, envío, devolución o reembolso directamente desde tu cuenta de Amazon.",
+    faq_title: "FAQ",
+    faq_q1: "¿Venden directamente en este sitio?",
+    faq_a1: "No. Este sitio ofrece información, guías y recetas. Las compras se completan de forma segura en Amazon.",
+    faq_q2: "¿Dónde completo mi compra?",
+    faq_a2: "Haz clic en el botón de Amazon de cada producto para completar la compra en Amazon.",
+    faq_q3: "¿Quién gestiona envío y devoluciones?",
+    faq_a3: "Como las compras se completan en Amazon, pago, envío, devoluciones y reembolsos son gestionados por Amazon.",
+    faq_q4: "¿Están afiliados a KitchenAid?",
+    faq_a4: "No. Nuestros productos son compatibles con batidoras KitchenAid, pero no son fabricados, avalados ni afiliados a KitchenAid.",
+    faq_q5: "¿Puedo ver el precio más reciente aquí?",
+    faq_a5: "Los precios y disponibilidad pueden cambiar. Consulta la página de Amazon para la información más exacta.",
+    legal_title: "Aviso de compra Amazon",
+    legal_notice:
+      "Este sitio proporciona información, guías y recomendaciones. Las compras se completan en Amazon. Precios, disponibilidad, envío, devoluciones y reembolsos son gestionados por Amazon y pueden variar. No recopilamos información de pago en este sitio.",
+    disclaimer_title: "Aviso legal",
+    disclaimer_text:
+      "This product is compatible with KitchenAid stand mixers. It is not manufactured by, endorsed by, or affiliated with KitchenAid.",
+    privacy_title: "Política de privacidad",
+    privacy_text:
+      "Recopilamos suscripciones de email e interacciones para mejorar guías, recetas y alertas de ofertas Amazon. No recopilamos información de pago."
   }
 };
 
@@ -547,6 +657,91 @@ function track(type, payload = {}) {
   }).catch(() => {});
 }
 
+function queryParam(name) {
+  return new URLSearchParams(window.location.search).get(name) || "";
+}
+
+function amazonTarget(product) {
+  if (product.amazonButtonEnabled === false) return "";
+  return product.amazonAttributionUrl || product.amazonUrl || "";
+}
+
+function amazonButtonText(product, fallbackKey = "buy_on_amazon") {
+  return product.amazonButtonText || t(fallbackKey);
+}
+
+function amazonButton(product, location, fallbackKey = "buy_on_amazon") {
+  const target = amazonTarget(product);
+  const disabled = target ? "" : "disabled";
+  const title = target ? t("amazon_checkout_note") : t("amazon_not_configured");
+  return `<button class="btn btn-primary" type="button" data-amazon="${product.id}" data-location="${location}" ${disabled} title="${title}">${target ? amazonButtonText(product, fallbackKey) : t("amazon_not_configured")}</button>`;
+}
+
+function fireMarketingPixels(payload) {
+  window.dataLayer?.push?.({ event: "amazon_click", ...payload });
+  window.gtag?.("event", "amazon_click", payload);
+  window.fbq?.("trackCustom", "amazon_click", payload);
+  window.ttq?.track?.("amazon_click", payload);
+}
+
+function initMarketingPixels() {
+  const { ga4Id, gtmId } = state.settings || {};
+  if (gtmId && !window.dataLayer) window.dataLayer = [];
+  if (ga4Id && !window.gtag) {
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function gtag() {
+      window.dataLayer.push(arguments);
+    };
+    window.gtag("js", new Date());
+    window.gtag("config", ga4Id);
+    const script = document.createElement("script");
+    script.async = true;
+    script.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(ga4Id)}`;
+    document.head.appendChild(script);
+  }
+}
+
+function recordAmazonClick(product, buttonLocation, amazonUrl) {
+  const payload = {
+    productName: product.productName || product.name,
+    productSlug: product.productSlug || product.id,
+    buttonLocation,
+    pagePath: window.location.pathname,
+    amazonUrl,
+    clickedAt: new Date().toISOString(),
+    referrer: document.referrer || "",
+    utmSource: queryParam("utm_source"),
+    utmMedium: queryParam("utm_medium"),
+    utmCampaign: queryParam("utm_campaign"),
+    userAgent: navigator.userAgent,
+    timestamp: Date.now()
+  };
+  fireMarketingPixels(payload);
+  const body = JSON.stringify(payload);
+  if (navigator.sendBeacon) {
+    navigator.sendBeacon("/api/amazon-click", new Blob([body], { type: "application/json" }));
+  } else {
+    fetch("/api/amazon-click", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body,
+      keepalive: true
+    }).catch(() => {});
+  }
+}
+
+function openAmazonProduct(id, buttonLocation) {
+  const product = productById(id);
+  if (!product) return;
+  const target = amazonTarget(product);
+  if (!target) {
+    toast(t("amazon_not_configured"));
+    return;
+  }
+  recordAmazonClick(product, buttonLocation, target);
+  window.open(target, "_blank", "noopener,noreferrer");
+}
+
 function productById(id) {
   return state.products.find((product) => product.id === id);
 }
@@ -562,6 +757,36 @@ function productImages(product) {
   const images = Array.isArray(product.images) ? product.images.filter(Boolean) : [];
   if (product.image && !images.includes(product.image)) images.unshift(product.image);
   return images.filter(Boolean).slice(0, 5);
+}
+
+function setMeta(name, content, attr = "name") {
+  let node = document.querySelector(`meta[${attr}="${name}"]`);
+  if (!node) {
+    node = document.createElement("meta");
+    node.setAttribute(attr, name);
+    document.head.appendChild(node);
+  }
+  node.setAttribute("content", content);
+}
+
+function resetSeo() {
+  const title = "Premium Stand Mixer Attachments | Compatible with KitchenAid Stand Mixers";
+  const description =
+    "Discover practical attachments for stand mixers, including pasta and kitchen prep accessories. Compatible with KitchenAid stand mixers. Shop securely on Amazon.";
+  document.title = title;
+  setMeta("description", description);
+  setMeta("og:title", title, "property");
+  setMeta("og:description", description, "property");
+}
+
+function setProductSeo(product) {
+  const title = `${product.productName || product.name} | Compatible with KitchenAid Stand Mixers`;
+  const description = `Learn more about ${product.productName || product.name}, designed for everyday home cooking and compatible with KitchenAid stand mixers. Check price and availability on Amazon.`;
+  document.title = title;
+  setMeta("description", description);
+  setMeta("og:title", title, "property");
+  setMeta("og:description", description, "property");
+  if (primaryImage(product)) setMeta("og:image", primaryImage(product), "property");
 }
 
 function primaryImage(product) {
@@ -688,7 +913,7 @@ function renderProducts() {
             </div>
             <div class="product-card-actions">
               <button class="btn btn-secondary detail-button" type="button" data-detail="${product.id}">${t("view_details")}</button>
-              <button class="btn btn-primary" type="button" data-add="${product.id}">${t("add_to_cart")}</button>
+              ${amazonButton(product, "product_card", "check_price_amazon")}
             </div>
           </div>
         </article>
@@ -696,8 +921,8 @@ function renderProducts() {
     })
     .join("");
 
-  $("#productGrid").querySelectorAll("[data-add]").forEach((button) => {
-    button.addEventListener("click", () => addToCart(button.dataset.add));
+  $("#productGrid").querySelectorAll("[data-amazon]").forEach((button) => {
+    button.addEventListener("click", () => openAmazonProduct(button.dataset.amazon, button.dataset.location));
   });
   $("#productGrid").querySelectorAll("[data-detail]").forEach((button) => {
     button.addEventListener("click", () => openProductDetail(button.dataset.detail));
@@ -736,15 +961,17 @@ function openProductDetail(id) {
           <span class="product-price">${currency(product.price)}</span>
           <s>${currency(product.compareAt)}</s>
         </div>
-        <button class="btn btn-primary" type="button" data-detail-add="${product.id}">${t("buy_now")}</button>
+        ${amazonButton(product, "product_detail", "buy_on_amazon")}
+        <small>${t("amazon_checkout_note")}</small>
       </div>
     </div>
   `;
   $("#productDialog").showModal();
+  setProductSeo(product);
   $("#closeProductDetail").addEventListener("click", () => $("#productDialog").close());
-  $("#productDetail").querySelector("[data-detail-add]").addEventListener("click", () => {
-    $("#productDialog").close();
-    addToCart(product.id);
+  $("#productDialog").addEventListener("close", resetSeo, { once: true });
+  $("#productDetail").querySelector("[data-amazon]").addEventListener("click", (event) => {
+    openAmazonProduct(event.currentTarget.dataset.amazon, event.currentTarget.dataset.location);
   });
   $("#productDetail").querySelectorAll("[data-gallery-image]").forEach((button) => {
     button.addEventListener("click", () => {
@@ -849,7 +1076,10 @@ function bindEvents() {
       if (use === "clean") return product.category === "care" || product.modelFit === "All stand mixers";
       return product.modelFit === style && ["baking", "bowls"].includes(product.category);
     });
-    picks.slice(0, 2).forEach((product) => addToCart(product.id));
+    if (picks[0]?.category) state.selectedCategory = picks[0].category;
+    renderCategories();
+    renderProducts();
+    $("#products").scrollIntoView({ behavior: "smooth" });
     track("finder_completed", { style, use });
     toast(t("finder_done"));
   });
@@ -871,10 +1101,9 @@ function bindEvents() {
   });
 
   $("#checkoutButton").addEventListener("click", () => {
-    if (!state.cart.length) return toast(t("checkout_empty"));
     closeCart();
-    track("checkout_started", { total: cartTotal() });
-    $("#checkoutDialog").showModal();
+    track("amazon_checkout_notice_viewed", { total: cartTotal() });
+    toast(t("amazon_purchase_notice_short"));
   });
 
   $("#closeCheckout").addEventListener("click", () => {
@@ -908,6 +1137,8 @@ async function init() {
   state.settings = data.settings;
   state.categories = data.categories;
   state.products = data.products;
+  resetSeo();
+  initMarketingPixels();
   bindEvents();
   applyLanguage();
   track("page_view", { title: document.title });

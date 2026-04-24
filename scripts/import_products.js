@@ -110,10 +110,15 @@ function normalizeProduct(record) {
     pick(record, ["image5", "image-5", "image url 5", "picture5"])
   ].filter(Boolean);
   const description = pick(record, ["description", "item-description", "item description", "bullet-points", "bullets"], `${name} for KitchenAid-compatible stand mixers.`);
+  const amazonUrl = pick(record, ["amazonUrl", "amazon url", "amazon-link", "amazon link"]);
+  const amazonAttributionUrl = pick(record, ["amazonAttributionUrl", "amazon attribution url", "attribution-url", "attribution url"]);
+  const productSlug = pick(record, ["productSlug", "product slug", "slug"], slug(sku || name));
 
   return {
     id: slug(sku || name),
     name,
+    productName: pick(record, ["productName", "product name"], name),
+    productSlug,
     category: inferCategory(name, category),
     price,
     compareAt,
@@ -124,7 +129,13 @@ function normalizeProduct(record) {
     images,
     description,
     inventory: numberValue(pick(record, ["inventory", "quantity", "qty", "stock"]), 10),
-    active: !["false", "0", "no", "hidden"].includes(pick(record, ["active", "status"], "true").toLowerCase())
+    active: !["false", "0", "no", "hidden"].includes(pick(record, ["active", "status"], "true").toLowerCase()),
+    amazonUrl,
+    amazonAttributionUrl,
+    amazonButtonText: pick(record, ["amazonButtonText", "amazon button text"], "Buy on Amazon"),
+    amazonButtonEnabled: !["false", "0", "no", "disabled"].includes(
+      pick(record, ["amazonButtonEnabled", "amazon enabled", "enable amazon button"], "true").toLowerCase()
+    )
   };
 }
 
