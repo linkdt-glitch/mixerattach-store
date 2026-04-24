@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MixerAttach Admin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body class="admin-body">
+    <main class="admin-shell">
+      <section class="login-panel" id="loginPanel">
+        <div>
+          <p class="eyebrow" data-admin-i18n="login_eyebrow">Store admin</p>
+          <h1 data-admin-i18n="login_title">Manage products, storefront, customers, and orders.</h1>
+          <p data-admin-i18n="login_note">
+            Default local password is admin123. Change ADMIN_PASSWORD before going public.
+          </p>
+        </div>
+        <form id="loginForm">
+          <div class="admin-lang-toggle" aria-label="Admin language">
+            <button type="button" data-admin-lang="en">EN</button>
+            <button type="button" data-admin-lang="zh">中文</button>
+          </div>
+          <label><span data-admin-i18n="password">Password</span> <input name="password" type="password" required /></label>
+          <button class="btn btn-primary" type="submit" data-admin-i18n="sign_in">Sign in</button>
+        </form>
+      </section>
+
+      <section class="dashboard hidden admin-console" id="dashboard">
+        <aside class="admin-sidebar">
+          <a href="/" class="admin-brand">
+            <div class="logo-icon">M</div>
+            <span>MixerAttach</span>
+          </a>
+          <nav class="admin-nav" aria-label="Admin navigation">
+            <button type="button" class="active" data-admin-target="overviewPanel" data-admin-i18n="nav_overview">Overview</button>
+            <button type="button" data-admin-target="productsPanel" data-admin-i18n="nav_products">Products</button>
+            <button type="button" data-admin-target="customersPanel" data-admin-i18n="nav_customers">Customers</button>
+            <button type="button" data-admin-target="ordersPanel" data-admin-i18n="nav_orders">Orders</button>
+            <button type="button" data-admin-target="storefrontPanel" data-admin-i18n="nav_storefront">Storefront</button>
+            <button type="button" data-admin-target="analyticsPanel" data-admin-i18n="nav_analytics">Analytics</button>
+          </nav>
+        </aside>
+
+        <div class="admin-main">
+          <header class="admin-topbar">
+            <div>
+              <p class="eyebrow" data-admin-i18n="dashboard">Dashboard</p>
+              <h1 data-admin-i18n="admin_title">Store operations center</h1>
+            </div>
+            <div class="admin-title-actions">
+              <div class="admin-lang-toggle" aria-label="Admin language">
+                <button type="button" data-admin-lang="en">EN</button>
+                <button type="button" data-admin-lang="zh">中文</button>
+              </div>
+              <a class="btn btn-secondary" href="/" data-admin-i18n="view_storefront">View storefront</a>
+              <button class="btn btn-primary" id="saveCatalogTop" type="button" data-admin-i18n="save_changes">Save changes</button>
+            </div>
+          </header>
+
+          <section class="admin-panel" id="overviewPanel">
+            <div class="metric-grid" id="metricGrid"></div>
+            <div class="admin-grid-two">
+              <section class="admin-section">
+                <div class="section-heading compact">
+                  <p class="eyebrow" data-admin-i18n="quick_tasks">Quick tasks</p>
+                  <h2 data-admin-i18n="quick_tasks_title">Keep the store ready to sell</h2>
+                </div>
+                <div class="quick-actions">
+                  <button class="btn btn-secondary" type="button" data-admin-target-button="productsPanel" data-admin-i18n="manage_products">
+                    Manage products
+                  </button>
+                  <button class="btn btn-secondary" type="button" data-admin-target-button="customersPanel" data-admin-i18n="view_emails">
+                    View customer emails
+                  </button>
+                  <button class="btn btn-secondary" type="button" data-admin-target-button="storefrontPanel" data-admin-i18n="edit_homepage">
+                    Edit homepage
+                  </button>
+                </div>
+              </section>
+              <section class="admin-section">
+                <div class="section-heading compact">
+                  <p class="eyebrow" data-admin-i18n="recent_customers">Recent customers</p>
+                  <h2 data-admin-i18n="customer_emails">Customer emails</h2>
+                </div>
+                <div class="email-list compact-list" id="recentEmailList"></div>
+              </section>
+            </div>
+          </section>
+
+          <section class="admin-panel hidden" id="productsPanel">
+            <section class="admin-section">
+              <div class="admin-section-toolbar">
+                <div class="section-heading compact">
+                  <p class="eyebrow" data-admin-i18n="catalog">Catalog</p>
+                  <h2 data-admin-i18n="products">Products</h2>
+                </div>
+                <div class="toolbar-actions">
+                  <label class="file-upload-btn">
+                    <span data-admin-i18n="import_csv">Import CSV</span>
+                    <input id="productCsvFile" type="file" accept=".csv" />
+                  </label>
+                  <button class="btn btn-secondary" id="addProduct" type="button" data-admin-i18n="add_product">Add product</button>
+                  <button class="btn btn-primary" id="saveCatalog" type="button" data-admin-i18n="save_catalog">Save catalog</button>
+                </div>
+              </div>
+              <p class="admin-help" data-admin-i18n="product_help">
+                Upload product photos, edit sales copy, adjust prices, and save to publish changes on the storefront.
+              </p>
+              <div class="admin-products" id="adminProducts"></div>
+            </section>
+          </section>
+
+          <section class="admin-panel hidden" id="customersPanel">
+            <section class="admin-section">
+              <div class="admin-section-toolbar">
+                <div class="section-heading compact">
+                  <p class="eyebrow">CRM</p>
+                  <h2 data-admin-i18n="customer_emails">Customer emails</h2>
+                </div>
+                <div class="toolbar-actions">
+                  <input class="admin-search" id="leadSearch" type="search" data-admin-placeholder="search_emails" placeholder="Search emails" />
+                  <button class="btn btn-secondary" id="exportLeads" type="button" data-admin-i18n="export_csv">Export CSV</button>
+                </div>
+              </div>
+              <div class="email-list" id="emailList"></div>
+            </section>
+          </section>
+
+          <section class="admin-panel hidden" id="ordersPanel">
+            <section class="admin-section">
+              <div class="section-heading compact">
+                <p class="eyebrow" data-admin-i18n="sales">Sales</p>
+                <h2 data-admin-i18n="orders">Orders</h2>
+              </div>
+              <div class="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th data-admin-i18n="order">Order</th>
+                      <th data-admin-i18n="customer">Customer</th>
+                      <th data-admin-i18n="total">Total</th>
+                      <th data-admin-i18n="status">Status</th>
+                      <th data-admin-i18n="created">Created</th>
+                    </tr>
+                  </thead>
+                  <tbody id="ordersTable"></tbody>
+                </table>
+              </div>
+            </section>
+          </section>
+
+          <section class="admin-panel hidden" id="storefrontPanel">
+            <section class="admin-section">
+              <div class="section-heading compact">
+                <p class="eyebrow" data-admin-i18n="front_page">Front page</p>
+                <h2 data-admin-i18n="hero_copy">Hero and brand copy</h2>
+              </div>
+              <form class="admin-form" id="settingsForm"></form>
+            </section>
+          </section>
+
+          <section class="admin-panel hidden" id="analyticsPanel">
+            <section class="admin-section">
+              <div class="section-heading compact">
+                <p class="eyebrow" data-admin-i18n="analytics">Analytics</p>
+                <h2 data-admin-i18n="recent_events">Recent events</h2>
+              </div>
+              <div class="event-list" id="eventList"></div>
+            </section>
+          </section>
+        </div>
+      </section>
+    </main>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script src="/admin.js"></script>
+  </body>
+</html>

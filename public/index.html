@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Premium KitchenAid-compatible accessories storefront with multilingual support."
+    />
+    <title>MixerAttach | KitchenAid-Compatible Accessories</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container header-inner">
+        <a href="#top" class="logo" aria-label="MixerAttach home">
+          <div class="logo-icon">M</div>
+          <span class="logo-text" id="brandName">MixerAttach</span>
+        </a>
+        <nav class="nav-links" aria-label="Primary navigation">
+          <a href="#products" data-i18n="nav_products">Products</a>
+          <a href="#categories" data-i18n="nav_categories">Categories</a>
+          <a href="#reviews" data-i18n="nav_reviews">Reviews</a>
+          <a href="#contact" data-i18n="nav_contact">Contact Us</a>
+        </nav>
+        <div class="header-actions">
+          <a class="admin-link" href="/admin.html" data-i18n="nav_admin">Admin</a>
+          <button class="cart-button" id="cartButton" type="button" aria-label="Open cart">
+            <span data-i18n="cart">Cart</span>
+            <strong id="cartCount">0</strong>
+          </button>
+          <div class="lang-switcher" id="langSwitcher">
+            <button class="lang-btn" id="langButton" type="button" aria-label="Select language">
+              <span id="currentLangLabel">🇺🇸 English</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M6 9l6 6 6-6" />
+              </svg>
+            </button>
+            <div class="lang-dropdown" aria-label="Language options">
+              <button class="lang-option active" data-lang="en" type="button">
+                <span>🇺🇸</span> English <small>EN</small>
+              </button>
+              <button class="lang-option" data-lang="zh" type="button">
+                <span>🇨🇳</span> 中文 <small>ZH</small>
+              </button>
+              <button class="lang-option" data-lang="fr" type="button">
+                <span>🇫🇷</span> Français <small>FR</small>
+              </button>
+              <button class="lang-option" data-lang="es" type="button">
+                <span>🇪🇸</span> Español <small>ES</small>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="hero attach-hero">
+        <div class="container hero-content">
+          <p class="eyebrow light" id="announcement">Free U.S. shipping over $59</p>
+          <h1 id="heroTitle">Premium KitchenAid Accessories</h1>
+          <p id="heroSubtitle">
+            Turn your stand mixer into the ultimate cooking tool with perfectly matched parts.
+          </p>
+          <div class="hero-actions">
+            <a href="#products" class="btn btn-primary" data-i18n="hero_cta1">Shop Now</a>
+            <a href="#categories" class="btn btn-secondary" data-i18n="hero_cta2">Learn More</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="value-props">
+        <div class="container">
+          <h2 class="section-title" data-i18n="value_title">Why Choose Us</h2>
+          <div class="value-grid">
+            <article class="value-card">
+              <div class="value-icon">🏆</div>
+              <h3 data-i18n="v1_title">Premium Quality</h3>
+              <p data-i18n="v1_desc">Food-grade stainless steel and durable daily-use materials.</p>
+            </article>
+            <article class="value-card">
+              <div class="value-icon">✅</div>
+              <h3 data-i18n="v2_title">Perfect Fit</h3>
+              <p data-i18n="v2_desc">Clear fit guidance for tilt-head and bowl-lift mixers.</p>
+            </article>
+            <article class="value-card">
+              <div class="value-icon">🔧</div>
+              <h3 data-i18n="v3_title">Easy to Use</h3>
+              <p data-i18n="v3_desc">Simple installation, quick cleaning, and practical care notes.</p>
+            </article>
+            <article class="value-card">
+              <div class="value-icon">💬</div>
+              <h3 data-i18n="v4_title">Expert Support</h3>
+              <p data-i18n="v4_desc">Support for model matching, replacement parts, and bulk orders.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="categories" id="categories">
+        <div class="container">
+          <h2 class="section-title" data-i18n="cat_title">Shop by Category</h2>
+          <div class="category-grid" id="categoryCards"></div>
+        </div>
+      </section>
+
+      <section class="products" id="products">
+        <div class="container">
+          <div class="section-head-row">
+            <h2 class="section-title" data-i18n="product_title">Best Sellers</h2>
+            <div class="category-tabs" id="categoryTabs" aria-label="Product filters"></div>
+          </div>
+          <div class="product-grid" id="productGrid" aria-live="polite"></div>
+        </div>
+      </section>
+
+      <section class="finder" id="fit">
+        <div class="container finder-inner">
+          <div>
+            <p class="eyebrow light" data-i18n="finder_eyebrow">Fit finder</p>
+            <h2 data-i18n="finder_title">Not sure which attachment fits?</h2>
+            <p data-i18n="finder_text">
+              Answer two quick questions and we will build a starter cart for your mixer style.
+            </p>
+          </div>
+          <form class="finder-panel" id="finderForm">
+            <label>
+              <span data-i18n="finder_style">Mixer style</span>
+              <select name="style">
+                <option value="Tilt-head 4.5-5 qt" data-i18n="style_tilt">Tilt-head</option>
+                <option value="Bowl-lift 5-6 qt" data-i18n="style_lift">Bowl-lift</option>
+              </select>
+            </label>
+            <label>
+              <span data-i18n="finder_use">Main use</span>
+              <select name="use">
+                <option value="baking" data-i18n="use_baking">Cookies and cakes</option>
+                <option value="bread" data-i18n="use_bread">Bread and pizza dough</option>
+                <option value="clean" data-i18n="use_clean">Replacement and care</option>
+              </select>
+            </label>
+            <button class="btn btn-primary" type="submit" data-i18n="finder_btn">Build my kit</button>
+          </form>
+        </div>
+      </section>
+
+      <section class="reviews" id="reviews">
+        <div class="container">
+          <h2 class="section-title" data-i18n="review_title">Customer Reviews</h2>
+          <div class="review-grid">
+            <article class="review-card">
+              <div class="reviewer">
+                <div class="avatar"></div>
+                <div>
+                  <div class="reviewer-name">Sarah M.</div>
+                  <div class="stars">★★★★★</div>
+                </div>
+              </div>
+              <div class="review-title" data-i18n="r1_title">Amazing Quality!</div>
+              <p class="review-text" data-i18n="r1_text">
+                Perfect fit for my mixer. Making weekend baking prep is so much easier.
+              </p>
+            </article>
+            <article class="review-card">
+              <div class="reviewer">
+                <div class="avatar"></div>
+                <div>
+                  <div class="reviewer-name">John D.</div>
+                  <div class="stars">★★★★★</div>
+                </div>
+              </div>
+              <div class="review-title" data-i18n="r2_title">Great Value</div>
+              <p class="review-text" data-i18n="r2_text">
+                Excellent quality and price. Easy to clean and simple to install.
+              </p>
+            </article>
+            <article class="review-card">
+              <div class="reviewer">
+                <div class="avatar"></div>
+                <div>
+                  <div class="reviewer-name">Emily R.</div>
+                  <div class="stars">★★★★☆</div>
+                </div>
+              </div>
+              <div class="review-title" data-i18n="r3_title">Love It!</div>
+              <p class="review-text" data-i18n="r3_text">
+                Works perfectly with my stand mixer. Fast shipping and helpful support.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="newsletter">
+        <div class="container">
+          <h2 data-i18n="news_title">Subscribe for Deals</h2>
+          <p data-i18n="news_subtitle">Get new arrivals, model-specific offers, and care tips first.</p>
+          <form class="newsletter-form" id="leadForm">
+            <input name="name" type="text" data-i18n-placeholder="name_placeholder" placeholder="Name" />
+            <input
+              name="email"
+              type="email"
+              data-i18n-placeholder="news_placeholder"
+              placeholder="Enter your email"
+              required
+            />
+            <input
+              name="interest"
+              type="text"
+              data-i18n-placeholder="interest_placeholder"
+              placeholder="Mixer model or part needed"
+            />
+            <button type="submit" data-i18n="news_btn">Subscribe</button>
+          </form>
+        </div>
+      </section>
+
+      <section class="trust">
+        <div class="container">
+          <div class="trust-grid">
+            <div class="trust-item">
+              <div class="trust-icon">🚚</div>
+              <span data-i18n="trust_t1">Free Shipping</span>
+            </div>
+            <div class="trust-item">
+              <div class="trust-icon">🛡️</div>
+              <span data-i18n="trust_t2">30-Day Returns</span>
+            </div>
+            <div class="trust-item">
+              <div class="trust-icon">💳</div>
+              <span data-i18n="trust_t3">Secure Checkout</span>
+            </div>
+            <div class="trust-item">
+              <div class="trust-icon">💬</div>
+              <span data-i18n="trust_t4">Fit Support</span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <aside class="cart-drawer" id="cartDrawer" aria-hidden="true">
+      <div class="cart-header">
+        <strong data-i18n="cart_title">Your cart</strong>
+        <button class="ghost-button" id="closeCart" type="button" data-i18n="close">Close</button>
+      </div>
+      <div class="cart-items" id="cartItems"></div>
+      <div class="cart-footer">
+        <div class="cart-total">
+          <span data-i18n="total">Total</span>
+          <strong id="cartTotal">$0</strong>
+        </div>
+        <button class="btn btn-primary" id="checkoutButton" type="button" data-i18n="checkout">
+          Checkout
+        </button>
+      </div>
+    </aside>
+    <div class="overlay" id="overlay"></div>
+
+    <dialog class="checkout-dialog" id="checkoutDialog">
+      <form method="dialog" class="checkout-form" id="checkoutForm">
+        <div class="dialog-header">
+          <div>
+            <p class="eyebrow" data-i18n="checkout_eyebrow">Secure order request</p>
+            <h2 data-i18n="checkout_title">Where should we send your parts?</h2>
+          </div>
+          <button class="ghost-button" id="closeCheckout" type="button" data-i18n="close">Close</button>
+        </div>
+        <label><span data-i18n="field_name">Name</span> <input name="name" autocomplete="name" required /></label>
+        <label><span data-i18n="field_email">Email</span> <input name="email" type="email" autocomplete="email" required /></label>
+        <label><span data-i18n="field_phone">Phone</span> <input name="phone" autocomplete="tel" /></label>
+        <label>
+          <span data-i18n="field_address">Shipping address</span>
+          <textarea name="address" rows="3" required></textarea>
+        </label>
+        <label><span data-i18n="field_notes">Notes</span> <textarea name="notes" rows="2"></textarea></label>
+        <button class="btn btn-primary" type="submit" data-i18n="place_order">Place order request</button>
+      </form>
+    </dialog>
+
+    <dialog class="product-dialog" id="productDialog">
+      <div class="product-detail" id="productDetail"></div>
+    </dialog>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <footer id="contact">
+      <div class="container footer-grid">
+        <div>
+          <div class="footer-logo">
+            <div class="logo-icon">M</div>
+            <span>MixerAttach</span>
+          </div>
+          <p class="footer-about" data-i18n="footer_about">
+            Premium KitchenAid-compatible accessories for cooking-loving homes.
+          </p>
+          <div class="footer-contact">
+            <div id="supportEmail">support@mixerattach.com</div>
+            <div>1-800-MIXER</div>
+            <div>California, USA</div>
+          </div>
+        </div>
+        <div class="footer-links">
+          <h4 data-i18n="footer_products">Products</h4>
+          <a href="#products" data-category-link="pasta">Pasta Attachments</a>
+          <a href="#products" data-category-link="grinders">Meat Grinders</a>
+          <a href="#products" data-category-link="slicers">Slicers & Shredders</a>
+          <a href="#products" data-category-link="baking">Baking Tools</a>
+        </div>
+        <div class="footer-links">
+          <h4 data-i18n="footer_company">Company</h4>
+          <a href="#categories" data-i18n="footer_aboutus">About Us</a>
+          <a href="#fit" data-i18n="footer_fit">Fit Finder</a>
+          <a href="#contact" data-i18n="nav_contact">Contact Us</a>
+          <a href="#reviews" data-i18n="nav_reviews">Reviews</a>
+        </div>
+        <div class="footer-links">
+          <h4 data-i18n="footer_support">Support</h4>
+          <a href="#contact" data-i18n="footer_shipping">Shipping Info</a>
+          <a href="#contact" data-i18n="footer_returns">Returns</a>
+          <a href="#contact" data-i18n="footer_warranty">Warranty</a>
+          <a href="#contact" data-i18n="footer_track">Order Tracking</a>
+        </div>
+      </div>
+      <div class="container copyright">
+        © 2026 MixerAttach. <span data-i18n="footer_rights">All rights reserved.</span>
+      </div>
+    </footer>
+
+    <script src="/app.js"></script>
+  </body>
+</html>

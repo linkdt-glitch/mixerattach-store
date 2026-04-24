@@ -1,0 +1,475 @@
+{
+  "settings": {
+    "brandName": "MixerAttach",
+    "announcement": "Free U.S. shipping over $59",
+    "heroTitle": "Premium KitchenAid Accessories",
+    "heroSubtitle": "Turn your stand mixer into the ultimate cooking tool with perfectly matched parts.",
+    "supportEmail": "support@mixerattach.com",
+    "currency": "USD"
+  },
+  "categories": [
+    {
+      "id": "pasta",
+      "name": "Pasta Attachments"
+    },
+    {
+      "id": "grinders",
+      "name": "Meat Grinders"
+    },
+    {
+      "id": "slicers",
+      "name": "Slicers & Shredders"
+    },
+    {
+      "id": "baking",
+      "name": "Baking Tools"
+    },
+    {
+      "id": "bowls",
+      "name": "Bowls & Shields"
+    },
+    {
+      "id": "care",
+      "name": "Care & Parts"
+    }
+  ],
+  "products": [
+    {
+      "id": "pasta-roller-cutter-set",
+      "name": "3-Piece Pasta Roller & Cutter Set",
+      "category": "pasta",
+      "price": 89.99,
+      "compareAt": 119.99,
+      "badge": "Best seller",
+      "modelFit": "All stand mixers",
+      "color": "#fef3c7",
+      "image": "https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&w=900&q=80",
+      "description": "Roll and cut fresh lasagna sheets, fettuccine, and spaghetti with a durable stainless-style attachment set.",
+      "inventory": 36,
+      "active": true,
+      "images": [
+        "https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&w=900&q=80",
+        "https://images.unsplash.com/photo-1611270629569-8b357cb88da9?auto=format&fit=crop&w=900&q=80",
+        "https://images.unsplash.com/photo-1563379926898-05f4575a45d8?auto=format&fit=crop&w=900&q=80",
+        "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=900&q=80",
+        "https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&fit=crop&w=900&q=80"
+      ]
+    },
+    {
+      "id": "pasta-press-disc-kit",
+      "name": "Gourmet Pasta Press Disc Kit",
+      "category": "pasta",
+      "price": 64.99,
+      "compareAt": 84.99,
+      "badge": "New",
+      "modelFit": "All stand mixers",
+      "color": "#fde68a",
+      "image": "https://images.unsplash.com/photo-1611270629569-8b357cb88da9?auto=format&fit=crop&w=900&q=80",
+      "description": "Six shaping discs for homemade bucatini, rigatoni, fusilli, macaroni, and thick spaghetti.",
+      "inventory": 28,
+      "active": true,
+      "images": [
+        "https://images.unsplash.com/photo-1611270629569-8b357cb88da9?auto=format&fit=crop&w=900&q=80",
+        "https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&w=900&q=80",
+        "https://images.unsplash.com/photo-1563379926898-05f4575a45d8?auto=format&fit=crop&w=900&q=80",
+        "https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&fit=crop&w=900&q=80",
+        "https://images.unsplash.com/photo-1601004890684-d8cbf643f5f2?auto=format&fit=crop&w=900&q=80"
+      ]
+    },
+    {
+      "id": "metal-food-grinder",
+      "name": "Metal Food Grinder Attachment",
+      "category": "grinders",
+      "price": 69.99,
+      "compareAt": 94.99,
+      "badge": "Heavy duty",
+      "modelFit": "All stand mixers",
+      "color": "#f5ebe0",
+      "image": "https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?auto=format&fit=crop&w=900&q=80",
+      "description": "Grind beef, pork, chicken, vegetables, and bread crumbs with coarse and fine grinding plates.",
+      "inventory": 42,
+      "active": true,
+      "images": [
+        "https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?auto=format&fit=crop&w=900&q=80",
+        "https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?auto=format&fit=crop&w=900&q=80",
+        "https://images.unsplash.com/photo-1601004890684-d8cbf643f5f2?auto=format&fit=crop&w=900&q=80",
+        "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=900&q=80",
+        "https://images.unsplash.com/photo-1589985270826-4b7bb135bc9d?auto=format&fit=crop&w=900&q=80"
+      ]
+    },
+    {
+      "id": "sausage-stuffer-tubes",
+      "name": "Sausage Stuffer Tube Set",
+      "category": "grinders",
+      "price": 18.99,
+      "compareAt": 27.99,
+      "badge": "Add-on",
+      "modelFit": "Food grinder attachment",
+      "color": "#f7d7c4",
+      "image": "https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?auto=format&fit=crop&w=900&q=80",
+      "description": "Two tube sizes for homemade breakfast links, bratwurst, Italian sausage, and snack sticks.",
+      "inventory": 55,
+      "active": true,
+      "images": [
+        "https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?auto=format&fit=crop&w=900&q=80",
+        "https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?auto=format&fit=crop&w=900&q=80",
+        "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=900&q=80",
+        "https://images.unsplash.com/photo-1589985270826-4b7bb135bc9d?auto=format&fit=crop&w=900&q=80",
+        "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=900&q=80"
+      ]
+    },
+    {
+      "id": "fresh-prep-slicer-shredder",
+      "name": "Fresh Prep Slicer & Shredder",
+      "category": "slicers",
+      "price": 49.99,
+      "compareAt": 69.99,
+      "badge": "Kitchen prep",
+      "modelFit": "All stand mixers",
+      "color": "#e7d3c5",
+      "image": "https://images.unsplash.com/photo-1518977676601-b53f82aba655?auto=format&fit=crop&w=900&q=80",
+      "description": "Slice cucumbers, shred cheese, grate carrots, and prep vegetables directly into a bowl.",
+      "inventory": 61,
+      "active": true,
+      "images": [
+        "https://images.unsplash.com/photo-1518977676601-b53f82aba655?auto=format&fit=crop&w=900&q=80",
+        "https://images.unsplash.com/photo-1506368249639-73a05d6f6488?auto=format&fit=crop&w=900&q=80",
+        "https://images.unsplash.com/photo-1589985270826-4b7bb135bc9d?auto=format&fit=crop&w=900&q=80",
+        "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=900&q=80",
+        "https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&fit=crop&w=900&q=80"
+      ]
+    },
+    {
+      "id": "spiralizer-peel-core-slice",
+      "name": "Spiralizer with Peel, Core & Slice",
+      "category": "slicers",
+      "price": 54.99,
+      "compareAt": 79.99,
+      "badge": "Healthy prep",
+      "modelFit": "All stand mixers",
+      "color": "#cfe0d4",
+      "image": "https://images.unsplash.com/photo-1506368249639-73a05d6f6488?auto=format&fit=crop&w=900&q=80",
+      "description": "Make zucchini noodles, apple rings, curly fries, and fruit slices with interchangeable blades.",
+      "inventory": 33,
+      "active": true,
+      "images": [
+        "https://images.unsplash.com/photo-1506368249639-73a05d6f6488?auto=format&fit=crop&w=900&q=80",
+        "https://images.unsplash.com/photo-1518977676601-b53f82aba655?auto=format&fit=crop&w=900&q=80",
+        "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=900&q=80",
+        "https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&fit=crop&w=900&q=80",
+        "https://images.unsplash.com/photo-1601004890684-d8cbf643f5f2?auto=format&fit=crop&w=900&q=80"
+      ]
+    },
+    {
+      "id": "ice-cream-maker-bowl",
+      "name": "Ice Cream Maker Bowl",
+      "category": "baking",
+      "price": 59.99,
+      "compareAt": 79.99,
+      "badge": "Summer pick",
+      "modelFit": "Tilt-head 4.5-5 qt",
+      "color": "#d7e4e8",
+      "image": "https://images.unsplash.com/photo-1560008581-09826d1de69e?auto=format&fit=crop&w=900&q=80",
+      "description": "Freeze the bowl, attach the dasher, and make small-batch ice cream, gelato, or sorbet at home.",
+      "inventory": 24,
+      "active": true,
+      "images": [
+        "https://images.unsplash.com/photo-1560008581-09826d1de69e?auto=format&fit=crop&w=900&q=80",
+        "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=900&q=80",
+        "https://images.unsplash.com/photo-1601004890684-d8cbf643f5f2?auto=format&fit=crop&w=900&q=80",
+        "https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&fit=crop&w=900&q=80",
+        "https://images.unsplash.com/photo-1589985270826-4b7bb135bc9d?auto=format&fit=crop&w=900&q=80"
+      ]
+    },
+    {
+      "id": "flex-edge-beater",
+      "name": "Flex Edge Beater",
+      "category": "baking",
+      "price": 24.99,
+      "compareAt": 34.99,
+      "badge": "Low effort",
+      "modelFit": "Tilt-head 4.5-5 qt",
+      "color": "#e7d3c5",
+      "image": "https://images.unsplash.com/photo-1601004890684-d8cbf643f5f2?auto=format&fit=crop&w=900&q=80",
+      "description": "Scrapes the bowl while mixing frosting, cookie dough, cake batter, mashed potatoes, and more.",
+      "inventory": 64,
+      "active": true,
+      "images": [
+        "https://images.unsplash.com/photo-1601004890684-d8cbf643f5f2?auto=format&fit=crop&w=900&q=80",
+        "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=900&q=80",
+        "https://images.unsplash.com/photo-1560008581-09826d1de69e?auto=format&fit=crop&w=900&q=80",
+        "https://images.unsplash.com/photo-1589985270826-4b7bb135bc9d?auto=format&fit=crop&w=900&q=80",
+        "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=900&q=80"
+      ]
+    },
+    {
+      "id": "coated-dough-hook",
+      "name": "Coated C-Dough Hook",
+      "category": "baking",
+      "price": 22.99,
+      "compareAt": 32.99,
+      "badge": "Bread day",
+      "modelFit": "Tilt-head 4.5-5 qt",
+      "color": "#dcd7c6",
+      "image": "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=900&q=80",
+      "description": "Knead pizza dough, dinner rolls, sandwich bread, and brioche with a smooth coated finish.",
+      "inventory": 48,
+      "active": true,
+      "images": [
+        "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=900&q=80",
+        "https://images.unsplash.com/photo-1560008581-09826d1de69e?auto=format&fit=crop&w=900&q=80",
+        "https://images.unsplash.com/photo-1601004890684-d8cbf643f5f2?auto=format&fit=crop&w=900&q=80",
+        "https://images.unsplash.com/photo-1589985270826-4b7bb135bc9d?auto=format&fit=crop&w=900&q=80",
+        "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=900&q=80"
+      ]
+    },
+    {
+      "id": "five-quart-stainless-bowl",
+      "name": "5-Qt Stainless Steel Mixing Bowl",
+      "category": "bowls",
+      "price": 42.99,
+      "compareAt": 58.99,
+      "badge": "Replacement",
+      "modelFit": "Tilt-head 4.5-5 qt",
+      "color": "#d7e4e8",
+      "image": "https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&fit=crop&w=900&q=80",
+      "description": "A polished replacement mixing bowl with handle for everyday baking, whipping, and prep work.",
+      "inventory": 40,
+      "active": true,
+      "images": [
+        "https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&fit=crop&w=900&q=80",
+        "https://images.unsplash.com/photo-1589985270826-4b7bb135bc9d?auto=format&fit=crop&w=900&q=80",
+        "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=900&q=80",
+        "https://images.unsplash.com/photo-1601004890684-d8cbf643f5f2?auto=format&fit=crop&w=900&q=80",
+        "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=900&q=80"
+      ]
+    },
+    {
+      "id": "clear-pouring-shield",
+      "name": "Clear Pouring Shield",
+      "category": "bowls",
+      "price": 18.99,
+      "compareAt": 29.99,
+      "badge": "Less mess",
+      "modelFit": "Tilt-head 4.5-5 qt",
+      "color": "#cfe0d4",
+      "image": "https://images.unsplash.com/photo-1589985270826-4b7bb135bc9d?auto=format&fit=crop&w=900&q=80",
+      "description": "Clip-on shield that helps keep flour inside the bowl and makes pouring ingredients cleaner.",
+      "inventory": 57,
+      "active": true,
+      "images": [
+        "https://images.unsplash.com/photo-1589985270826-4b7bb135bc9d?auto=format&fit=crop&w=900&q=80",
+        "https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&fit=crop&w=900&q=80",
+        "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=900&q=80",
+        "https://images.unsplash.com/photo-1601004890684-d8cbf643f5f2?auto=format&fit=crop&w=900&q=80",
+        "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=900&q=80"
+      ]
+    },
+    {
+      "id": "attachment-care-kit",
+      "name": "Attachment Care & Cleaning Kit",
+      "category": "care",
+      "price": 15.99,
+      "compareAt": 24.99,
+      "badge": "Tune-up",
+      "modelFit": "All stand mixers",
+      "color": "#d8d6e8",
+      "image": "https://images.unsplash.com/photo-1583947581924-a6d1dc386a6f?auto=format&fit=crop&w=900&q=80",
+      "description": "Food-safe cloth, detail brushes, hub gasket, and simple care checklist for daily attachment maintenance.",
+      "inventory": 73,
+      "active": true,
+      "images": [
+        "https://images.unsplash.com/photo-1583947581924-a6d1dc386a6f?auto=format&fit=crop&w=900&q=80",
+        "https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&fit=crop&w=900&q=80",
+        "https://images.unsplash.com/photo-1601004890684-d8cbf643f5f2?auto=format&fit=crop&w=900&q=80",
+        "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=900&q=80",
+        "https://images.unsplash.com/photo-1589985270826-4b7bb135bc9d?auto=format&fit=crop&w=900&q=80"
+      ]
+    }
+  ],
+  "orders": [],
+  "leads": [],
+  "events": [
+    {
+      "id": "d8fe153e-3aba-4e54-9c25-dbe3a36058fc",
+      "type": "page_view",
+      "payload": {
+        "title": "MixerAttach | KitchenAid-Compatible Accessories"
+      },
+      "path": "/",
+      "createdAt": "2026-04-24T05:41:45.765Z"
+    },
+    {
+      "id": "9938ce7b-6a05-4187-8a26-0fddf435169b",
+      "type": "page_view",
+      "payload": {
+        "title": "MixerAttach | KitchenAid-Compatible Accessories"
+      },
+      "path": "/",
+      "createdAt": "2026-04-24T04:15:04.085Z"
+    },
+    {
+      "id": "c41319da-25e9-429a-8df5-fad4ed59b4d7",
+      "type": "page_view",
+      "payload": {
+        "title": "MixerAttach | KitchenAid-Compatible Accessories"
+      },
+      "path": "/",
+      "createdAt": "2026-04-24T03:53:35.802Z"
+    },
+    {
+      "id": "dc45f8de-09a2-4af5-a539-8cac10d76f92",
+      "type": "language_changed",
+      "payload": {
+        "lang": "zh"
+      },
+      "path": "/",
+      "createdAt": "2026-04-24T03:40:24.191Z"
+    },
+    {
+      "id": "faa25307-413d-496a-9b71-e70c678741ba",
+      "type": "page_view",
+      "payload": {
+        "title": "MixerAttach | KitchenAid-Compatible Accessories"
+      },
+      "path": "/",
+      "createdAt": "2026-04-24T03:40:21.988Z"
+    },
+    {
+      "id": "95b3ed43-c7a5-4c29-9ebb-7ff6035e1bf6",
+      "type": "page_view",
+      "payload": {
+        "title": "MixerAttach | KitchenAid-Compatible Accessories"
+      },
+      "path": "/",
+      "createdAt": "2026-04-24T03:36:17.102Z"
+    },
+    {
+      "id": "63be539a-6a96-4da2-acf0-8ee0dbd59dc1",
+      "type": "page_view",
+      "payload": {
+        "title": "MixerAttach | KitchenAid-Compatible Accessories"
+      },
+      "path": "/",
+      "createdAt": "2026-04-24T03:29:22.546Z"
+    },
+    {
+      "id": "e1b04fe7-d0f0-4769-90e4-7150b0caffde",
+      "type": "page_view",
+      "payload": {
+        "title": "MixerAttach | KitchenAid-Compatible Accessories"
+      },
+      "path": "/",
+      "createdAt": "2026-04-24T03:19:41.215Z"
+    },
+    {
+      "id": "c57d3cce-ff03-45ea-b166-6d95d656d31c",
+      "type": "page_view",
+      "payload": {
+        "title": "MixerAttach | KitchenAid-Compatible Accessories"
+      },
+      "path": "/",
+      "createdAt": "2026-04-24T03:19:28.817Z"
+    },
+    {
+      "id": "48fdf571-e814-48ff-adee-d2d198f930ab",
+      "type": "page_view",
+      "payload": {
+        "title": "MixerAttach | KitchenAid-Compatible Accessories"
+      },
+      "path": "/",
+      "createdAt": "2026-04-24T03:17:54.016Z"
+    },
+    {
+      "id": "fab9c9d2-aaf3-417a-aea9-0c4978a5e84f",
+      "type": "page_view",
+      "payload": {
+        "title": "MixerAttach | KitchenAid-Compatible Accessories"
+      },
+      "path": "/",
+      "createdAt": "2026-04-24T03:17:32.905Z"
+    },
+    {
+      "id": "00f8719f-e961-446c-8800-8eb34016689f",
+      "type": "language_changed",
+      "payload": {
+        "lang": "zh"
+      },
+      "path": "/",
+      "createdAt": "2026-04-24T03:01:06.546Z"
+    },
+    {
+      "id": "4b5c659f-a02e-46e2-a26f-33911b8f7862",
+      "type": "page_view",
+      "payload": {
+        "title": "MixerAttach | KitchenAid-Compatible Accessories"
+      },
+      "path": "/",
+      "createdAt": "2026-04-24T03:01:03.617Z"
+    },
+    {
+      "id": "60145d86-168b-41a7-934d-ce98a3671e9d",
+      "type": "checkout_started",
+      "payload": {
+        "total": 69
+      },
+      "path": "/",
+      "createdAt": "2026-04-24T03:00:00.802Z"
+    },
+    {
+      "id": "8a0e116d-d444-4bf7-817c-9cec5b5af7a0",
+      "type": "add_to_cart",
+      "payload": {
+        "id": "baker-bundle",
+        "qty": 1
+      },
+      "path": "/",
+      "createdAt": "2026-04-24T02:59:59.228Z"
+    },
+    {
+      "id": "e0e5d303-619b-495a-94c1-ff06710164a5",
+      "type": "category_card_selected",
+      "payload": {
+        "category": "beaters"
+      },
+      "path": "/",
+      "createdAt": "2026-04-24T02:59:58.181Z"
+    },
+    {
+      "id": "8438a390-b73a-45e3-9938-1955bcc0025b",
+      "type": "page_view",
+      "payload": {
+        "title": "MixerAttach | KitchenAid-Compatible Accessories"
+      },
+      "path": "/",
+      "createdAt": "2026-04-24T02:59:48.801Z"
+    },
+    {
+      "id": "67f72aad-c2a5-47de-87aa-e7fd0db06e06",
+      "type": "page_view",
+      "payload": {
+        "title": "MixerAttach | KitchenAid-Compatible Accessories"
+      },
+      "path": "/",
+      "createdAt": "2026-04-24T02:54:22.111Z"
+    },
+    {
+      "id": "a25533fb-ab9a-4021-a17e-89988697b64c",
+      "type": "language_changed",
+      "payload": {
+        "lang": "zh"
+      },
+      "path": "/",
+      "createdAt": "2026-04-24T02:53:42.441Z"
+    },
+    {
+      "id": "ba35816a-b53a-4a06-81e0-3daab681065b",
+      "type": "page_view",
+      "payload": {
+        "title": "MixerAttach | KitchenAid-Compatible Accessories"
+      },
+      "path": "/",
+      "createdAt": "2026-04-24T02:53:36.723Z"
+    }
+  ]
+}

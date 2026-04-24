@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: mixermate-store
+    env: node
+    plan: starter
+    buildCommand: echo "no build needed"
+    startCommand: HOST=0.0.0.0 node server.js
+    disk:
+      name: store-data
+      mountPath: /var/data
+      sizeGB: 1
+    envVars:
+      - key: ADMIN_PASSWORD
+        generateValue: true
+      - key: DB_FILE
+        value: /var/data/db.json
