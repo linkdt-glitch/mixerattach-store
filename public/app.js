@@ -677,6 +677,50 @@ function amazonButton(product, location, fallbackKey = "buy_on_amazon") {
   return `<button class="btn btn-primary" type="button" data-amazon="${product.id}" data-location="${location}" ${disabled} title="${title}">${target ? amazonButtonText(product, fallbackKey) : t("amazon_not_configured")}</button>`;
 }
 
+function stripeButton(product, location) {
+  if (!state.settings?.stripeEnabled) return "";
+  return `<button class="btn btn-secondary" type="button" data-stripe-product="${product.id}" data-location="${location}">Pay by Card</button>`;
+}
+
+async function stripeCheckoutProduct(productId) {
+  const product = productById(productId);
+  if (!product) return;
+  try {
+    const response = await fetch("/api/checkout/stripe", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ items: [{ id: product.id, qty: 1 }] })
+    });
+    const data = await response.json();
+    if (response.ok && data.url) {
+      window.location.href = data.url;
+    } else {
+      toast(data.error || "Payment unavailable.");
+    }
+  } catch {
+    toast("Payment unavailable.");
+  }
+}
+
+async function stripeCheckoutCart() {
+  if (!state.cart.length) { toast(t("checkout_empty")); return; }
+  try {
+    const response = await fetch("/api/checkout/stripe", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ items: state.cart })
+    });
+    const data = await response.json();
+    if (response.ok && data.url) {
+      window.location.href = data.url;
+    } else {
+      toast(data.error || "Payment unavailable.");
+    }
+  } catch {
+    toast("Payment unavailable.");
+  }
+}
+
 function fireMarketingPixels(payload) {
   window.dataLayer?.push?.({ event: "amazon_click", ...payload });
   window.gtag?.("event", "amazon_click", payload);
@@ -914,6 +958,7 @@ function renderProducts() {
             <div class="product-card-actions">
               <button class="btn btn-secondary detail-button" type="button" data-detail="${product.id}">${t("view_details")}</button>
               ${amazonButton(product, "product_card", "check_price_amazon")}
+              ${stripeButton(product, "product_card")}
             </div>
           </div>
         </article>
@@ -926,6 +971,9 @@ function renderProducts() {
   });
   $("#productGrid").querySelectorAll("[data-detail]").forEach((button) => {
     button.addEventListener("click", () => openProductDetail(button.dataset.detail));
+  });
+  $("#productGrid").querySelectorAll("[data-stripe-product]").forEach((button) => {
+    button.addEventListener("click", () => stripeCheckoutProduct(button.dataset.stripeProduct));
   });
 }
 
@@ -962,6 +1010,7 @@ function openProductDetail(id) {
           <s>${currency(product.compareAt)}</s>
         </div>
         ${amazonButton(product, "product_detail", "buy_on_amazon")}
+        ${stripeButton(product, "product_detail")}
         <small>${t("amazon_checkout_note")}</small>
       </div>
     </div>
@@ -970,9 +1019,12 @@ function openProductDetail(id) {
   setProductSeo(product);
   $("#closeProductDetail").addEventListener("click", () => $("#productDialog").close());
   $("#productDialog").addEventListener("close", resetSeo, { once: true });
-  $("#productDetail").querySelector("[data-amazon]").addEventListener("click", (event) => {
+  const amazonBtn = $("#productDetail").querySelector("[data-amazon]");
+  if (amazonBtn) amazonBtn.addEventListener("click", (event) => {
     openAmazonProduct(event.currentTarget.dataset.amazon, event.currentTarget.dataset.location);
   });
+  const stripeBtn = $("#productDetail").querySelector("[data-stripe-product]");
+  if (stripeBtn) stripeBtn.addEventListener("click", () => stripeCheckoutProduct(stripeBtn.dataset.stripeProduct));
   $("#productDetail").querySelectorAll("[data-gallery-image]").forEach((button) => {
     button.addEventListener("click", () => {
       $("#productGalleryMain").src = button.dataset.galleryImage;
@@ -1106,6 +1158,11 @@ function bindEvents() {
     toast(t("amazon_purchase_notice_short"));
   });
 
+  $("#stripeCheckoutButton").addEventListener("click", () => {
+    closeCart();
+    stripeCheckoutCart();
+  });
+
   $("#closeCheckout").addEventListener("click", () => {
     $("#checkoutDialog").close();
   });
@@ -1142,6 +1199,22 @@ async function init() {
   bindEvents();
   applyLanguage();
   track("page_view", { title: document.title });
+
+  if (data.settings?.stripeEnabled) {
+    const stripeCartBtn = $("#stripeCheckoutButton");
+    if (stripeCartBtn) stripeCartBtn.style.display = "";
+  }
+
+  const payment = queryParam("payment");
+  if (payment === "success") {
+    state.cart = [];
+    saveCart();
+    toast("Payment successful — thank you for your order!");
+    history.replaceState(null, "", window.location.pathname);
+  } else if (payment === "cancelled") {
+    toast("Payment cancelled. Your cart is still saved.");
+    history.replaceState(null, "", window.location.pathname);
+  }
 }
 
 init().catch(() => {

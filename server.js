@@ -1,15 +1,24 @@
 const http = require("http");
+const https = require("https");
 const fs = require("fs");
 const path = require("path");
 const crypto = require("crypto");
 
 const PORT = Number(process.env.PORT || 3000);
 const HOST = process.env.HOST || "127.0.0.1";
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "admin123";
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || (() => {
+  const pw = crypto.randomBytes(8).toString("hex");
+  console.warn(`\n⚠  ADMIN_PASSWORD not set — one-time password: ${pw}\n   Set ADMIN_PASSWORD env var for a persistent password.\n`);
+  return pw;
+})();
 const PUBLIC_DIR = path.join(__dirname, "public");
 const DEFAULT_DB_FILE = path.join(__dirname, "data", "db.json");
 const DB_FILE = process.env.DB_FILE || DEFAULT_DB_FILE;
 const DATA_DIR = path.dirname(DB_FILE);
+const SQLITE_PATH = DB_FILE.replace(/\.json$/, "") + ".sqlite";
+const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY || "";
+const STRIPE_WEBHOOK_SECRET = process.env.STRIPE_WEBHOOK_SECRET || "";
+const SITE_URL = process.env.SITE_URL || `http://localhost:${PORT}`;
 const SESSION_TOKENS = new Set();
 
 const defaultDb = {
@@ -136,25 +145,102 @@ const defaultDb = {
   events: []
 };
 
-function ensureDb() {
+// ── SQLite storage ────────────────────────────────────────────────────────────
+
+let _sqliteDb = null;
+
+function openDb() {
+  if (_sqliteDb) return _sqliteDb;
+  const { DatabaseSync } = require("node:sqlite");
   fs.mkdirSync(DATA_DIR, { recursive: true });
-  if (!fs.existsSync(DB_FILE)) {
-    if (DB_FILE !== DEFAULT_DB_FILE && fs.existsSync(DEFAULT_DB_FILE)) {
-      fs.copyFileSync(DEFAULT_DB_FILE, DB_FILE);
+  _sqliteDb = new DatabaseSync(SQLITE_PATH);
+  _sqliteDb.exec(`
+    PRAGMA journal_mode=WAL;
+    PRAGMA synchronous=NORMAL;
+    CREATE TABLE IF NOT EXISTS settings (key TEXT PRIMARY KEY, value TEXT NOT NULL);
+    CREATE TABLE IF NOT EXISTS categories (position INTEGER DEFAULT 0, id TEXT PRIMARY KEY, name TEXT NOT NULL);
+    CREATE TABLE IF NOT EXISTS products (id TEXT PRIMARY KEY, data TEXT NOT NULL);
+    CREATE TABLE IF NOT EXISTS orders (id TEXT PRIMARY KEY, created_at TEXT NOT NULL, data TEXT NOT NULL);
+    CREATE TABLE IF NOT EXISTS leads (id TEXT PRIMARY KEY, created_at TEXT NOT NULL, data TEXT NOT NULL);
+    CREATE TABLE IF NOT EXISTS events (id TEXT PRIMARY KEY, type TEXT NOT NULL, created_at TEXT NOT NULL, data TEXT NOT NULL);
+  `);
+  return _sqliteDb;
+}
+
+function readDb() {
+  const db = openDb();
+  const settingsRows = db.prepare("SELECT key, value FROM settings").all();
+  const settings = { ...defaultDb.settings };
+  for (const row of settingsRows) {
+    try { settings[row.key] = JSON.parse(row.value); } catch { settings[row.key] = row.value; }
+  }
+  const categories = db.prepare("SELECT id, name FROM categories ORDER BY position").all();
+  const products = db.prepare("SELECT data FROM products").all().map((r) => JSON.parse(r.data));
+  const orders = db.prepare("SELECT data FROM orders ORDER BY created_at DESC").all().map((r) => JSON.parse(r.data));
+  const leads = db.prepare("SELECT data FROM leads ORDER BY created_at DESC").all().map((r) => JSON.parse(r.data));
+  const events = db.prepare("SELECT data FROM events ORDER BY created_at DESC LIMIT 1000").all().map((r) => JSON.parse(r.data));
+  return { settings, categories, products, orders, leads, events };
+}
+
+function writeDb(data) {
+  const db = openDb();
+  db.exec("BEGIN");
+  try {
+    db.prepare("DELETE FROM settings").run();
+    const insSetting = db.prepare("INSERT INTO settings (key, value) VALUES (?, ?)");
+    for (const [key, value] of Object.entries(data.settings || {})) {
+      insSetting.run(key, JSON.stringify(value));
+    }
+
+    db.prepare("DELETE FROM categories").run();
+    const insCat = db.prepare("INSERT INTO categories (position, id, name) VALUES (?, ?, ?)");
+    (data.categories || []).forEach((cat, i) => insCat.run(i, cat.id, cat.name));
+
+    db.prepare("DELETE FROM products").run();
+    const insProd = db.prepare("INSERT INTO products (id, data) VALUES (?, ?)");
+    for (const p of (data.products || [])) insProd.run(p.id, JSON.stringify(p));
+
+    db.prepare("DELETE FROM orders").run();
+    const insOrd = db.prepare("INSERT INTO orders (id, created_at, data) VALUES (?, ?, ?)");
+    for (const o of (data.orders || [])) insOrd.run(o.id, o.createdAt || new Date().toISOString(), JSON.stringify(o));
+
+    db.prepare("DELETE FROM leads").run();
+    const insLead = db.prepare("INSERT INTO leads (id, created_at, data) VALUES (?, ?, ?)");
+    for (const l of (data.leads || [])) insLead.run(l.id, l.createdAt || new Date().toISOString(), JSON.stringify(l));
+
+    db.prepare("DELETE FROM events").run();
+    const insEv = db.prepare("INSERT INTO events (id, type, created_at, data) VALUES (?, ?, ?, ?)");
+    for (const e of (data.events || [])) insEv.run(e.id, e.type || "event", e.createdAt || new Date().toISOString(), JSON.stringify(e));
+
+    db.exec("COMMIT");
+  } catch (err) {
+    db.exec("ROLLBACK");
+    throw err;
+  }
+}
+
+function ensureDb() {
+  const db = openDb();
+  const { n } = db.prepare("SELECT COUNT(*) as n FROM settings").get();
+  if (n === 0) {
+    if (fs.existsSync(DB_FILE)) {
+      try {
+        const raw = fs.readFileSync(DB_FILE, "utf8");
+        const data = normalizeCatalog(JSON.parse(raw));
+        writeDb(data);
+        fs.renameSync(DB_FILE, DB_FILE + ".migrated");
+        console.log(`Migrated ${path.basename(DB_FILE)} → ${path.basename(SQLITE_PATH)}`);
+      } catch (e) {
+        console.error("Migration failed, seeding defaults:", e.message);
+        writeDb(normalizeCatalog({ ...defaultDb }));
+      }
     } else {
-      fs.writeFileSync(DB_FILE, JSON.stringify(defaultDb, null, 2));
+      writeDb(normalizeCatalog({ ...defaultDb }));
     }
   }
 }
 
-function readDb() {
-  ensureDb();
-  return JSON.parse(fs.readFileSync(DB_FILE, "utf8"));
-}
-
-function writeDb(db) {
-  fs.writeFileSync(DB_FILE, JSON.stringify(db, null, 2));
-}
+// ── HTTP helpers ──────────────────────────────────────────────────────────────
 
 function sendJson(res, status, data) {
   const body = JSON.stringify(data);
@@ -183,6 +269,20 @@ function readBody(req) {
         reject(error);
       }
     });
+  });
+}
+
+function readRawBody(req) {
+  return new Promise((resolve, reject) => {
+    const chunks = [];
+    let total = 0;
+    req.on("data", (chunk) => {
+      chunks.push(chunk);
+      total += chunk.length;
+      if (total > 1_000_000) { req.destroy(); reject(new Error("Payload too large")); }
+    });
+    req.on("end", () => resolve(Buffer.concat(chunks).toString("utf8")));
+    req.on("error", reject);
   });
 }
 
@@ -225,13 +325,7 @@ function contentType(filePath) {
   );
 }
 
-function moneyTotal(items, products) {
-  return items.reduce((sum, item) => {
-    const product = products.find((entry) => entry.id === item.id && entry.active);
-    const qty = Math.max(1, Number(item.qty || 1));
-    return product ? sum + product.price * qty : sum;
-  }, 0);
-}
+// ── Business logic ────────────────────────────────────────────────────────────
 
 function hydrateOrderItems(items, products) {
   return items
@@ -299,12 +393,137 @@ function recordEvent(db, event) {
   db.events = db.events.slice(0, 1000);
 }
 
+// ── Stripe helpers ────────────────────────────────────────────────────────────
+
+function flattenParams(obj, prefix) {
+  const result = [];
+  for (const [key, value] of Object.entries(obj)) {
+    const k = prefix ? `${prefix}[${key}]` : key;
+    if (Array.isArray(value)) {
+      value.forEach((item, i) => {
+        if (item !== null && typeof item === "object") {
+          result.push(...flattenParams(item, `${k}[${i}]`));
+        } else {
+          result.push([`${k}[${i}]`, String(item)]);
+        }
+      });
+    } else if (value !== null && typeof value === "object") {
+      result.push(...flattenParams(value, k));
+    } else {
+      result.push([k, String(value)]);
+    }
+  }
+  return result;
+}
+
+function stripeRequest(method, urlPath, params) {
+  return new Promise((resolve, reject) => {
+    const body = params ? new URLSearchParams(flattenParams(params)).toString() : "";
+    const options = {
+      hostname: "api.stripe.com",
+      port: 443,
+      path: urlPath,
+      method,
+      headers: {
+        Authorization: `Bearer ${STRIPE_SECRET_KEY}`,
+        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Length": Buffer.byteLength(body)
+      }
+    };
+    const req = https.request(options, (res) => {
+      let raw = "";
+      res.on("data", (chunk) => (raw += chunk));
+      res.on("end", () => {
+        try {
+          const parsed = JSON.parse(raw);
+          if (res.statusCode >= 400) reject(new Error(parsed.error?.message || `Stripe ${res.statusCode}`));
+          else resolve(parsed);
+        } catch {
+          reject(new Error("Invalid Stripe response"));
+        }
+      });
+    });
+    req.on("error", reject);
+    if (body) req.write(body);
+    req.end();
+  });
+}
+
+function verifyStripeSignature(rawBody, header, secret) {
+  const parts = header.split(",").reduce(
+    (acc, part) => {
+      const eq = part.indexOf("=");
+      const k = part.slice(0, eq);
+      const v = part.slice(eq + 1);
+      if (k === "t") acc.timestamp = v;
+      else if (k === "v1") acc.signatures.push(v);
+      return acc;
+    },
+    { timestamp: null, signatures: [] }
+  );
+  if (!parts.timestamp) return false;
+  const signed = `${parts.timestamp}.${rawBody}`;
+  const expected = crypto.createHmac("sha256", secret).update(signed).digest("hex");
+  return parts.signatures.some((sig) => {
+    try {
+      return crypto.timingSafeEqual(Buffer.from(sig, "hex"), Buffer.from(expected, "hex"));
+    } catch {
+      return false;
+    }
+  });
+}
+
+// ── API router ────────────────────────────────────────────────────────────────
+
 async function handleApi(req, res, url) {
+  // Stripe webhook must read raw body before anything else
+  if (req.method === "POST" && url.pathname === "/api/webhook/stripe") {
+    const rawBody = await readRawBody(req);
+    if (STRIPE_WEBHOOK_SECRET) {
+      const sig = req.headers["stripe-signature"] || "";
+      if (!verifyStripeSignature(rawBody, sig, STRIPE_WEBHOOK_SECRET)) {
+        sendJson(res, 400, { error: "Invalid signature" });
+        return;
+      }
+    }
+    let event;
+    try { event = JSON.parse(rawBody); } catch { sendJson(res, 400, { error: "Invalid JSON" }); return; }
+    if (event.type === "checkout.session.completed") {
+      const db = normalizeCatalog(readDb());
+      const session = event.data.object;
+      const details = session.customer_details || {};
+      const addr = details.address;
+      const order = {
+        id: `ST-${session.id.slice(-8).toUpperCase()}`,
+        status: "paid",
+        stripeSessionId: session.id,
+        total: (session.amount_total || 0) / 100,
+        items: [],
+        customer: {
+          name: details.name || "",
+          email: details.email || "",
+          phone: details.phone || "",
+          address: addr ? [addr.line1, addr.city, addr.country].filter(Boolean).join(", ") : ""
+        },
+        createdAt: new Date().toISOString()
+      };
+      db.orders.unshift(order);
+      recordEvent(db, { type: "stripe_payment", payload: { orderId: order.id, total: order.total } });
+      writeDb(db);
+    }
+    sendJson(res, 200, { received: true });
+    return;
+  }
+
   const db = normalizeCatalog(readDb());
 
   if (req.method === "GET" && url.pathname === "/api/catalog") {
     sendJson(res, 200, {
-      settings: db.settings,
+      settings: {
+        ...db.settings,
+        stripeEnabled: !!STRIPE_SECRET_KEY,
+        stripePublishableKey: process.env.STRIPE_PUBLISHABLE_KEY || ""
+      },
       categories: db.categories,
       products: db.products.filter((product) => product.active)
     });
@@ -388,6 +607,34 @@ async function handleApi(req, res, url) {
     recordEvent(db, { type: "order_created", payload: { id: order.id, total } });
     writeDb(db);
     sendJson(res, 201, { order });
+    return;
+  }
+
+  if (req.method === "POST" && url.pathname === "/api/checkout/stripe") {
+    if (!STRIPE_SECRET_KEY) {
+      sendJson(res, 503, { error: "Direct payment is not configured" });
+      return;
+    }
+    const body = await readBody(req);
+    const items = Array.isArray(body.items) ? body.items : [];
+    if (!items.length) { sendJson(res, 400, { error: "Cart is empty" }); return; }
+    const hydrated = hydrateOrderItems(items, db.products);
+    if (!hydrated.length) { sendJson(res, 400, { error: "No valid products" }); return; }
+    const currency = (db.settings.currency || "USD").toLowerCase();
+    const session = await stripeRequest("POST", "/v1/checkout/sessions", {
+      mode: "payment",
+      line_items: hydrated.map((item) => ({
+        price_data: {
+          currency,
+          product_data: { name: item.name },
+          unit_amount: String(Math.round(item.price * 100))
+        },
+        quantity: String(item.qty)
+      })),
+      success_url: `${SITE_URL}/?payment=success&session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${SITE_URL}/?payment=cancelled`
+    });
+    sendJson(res, 200, { url: session.url });
     return;
   }
 
@@ -482,7 +729,5 @@ ensureDb();
 server.listen(PORT, HOST, () => {
   console.log(`MixerAttach store running at http://localhost:${PORT}`);
   console.log(`Admin: http://localhost:${PORT}/admin.html`);
-  if (!process.env.ADMIN_PASSWORD) {
-    console.log("Default admin password is admin123. Set ADMIN_PASSWORD in production.");
-  }
+  if (STRIPE_SECRET_KEY) console.log("Stripe direct payment: enabled");
 });

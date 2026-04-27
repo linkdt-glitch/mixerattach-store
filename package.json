@@ -4,10 +4,10 @@
   "private": true,
   "description": "A deployable independent store for KitchenAid-compatible mixer accessories.",
   "scripts": {
-    "start": "node server.js",
-    "dev": "node server.js"
+    "start": "node --experimental-sqlite server.js",
+    "dev": "node --experimental-sqlite server.js"
   },
   "engines": {
-    "node": ">=20"
+    "node": ">=22.5"
   }
 }

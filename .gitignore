@@ -1,3 +1,9 @@
 node_modules/
 .DS_Store
 *.log
+.env
+data/db.json
+data/db.json.migrated
+data/*.sqlite
+data/*.sqlite-shm
+data/*.sqlite-wal
